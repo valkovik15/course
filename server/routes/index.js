@@ -32,11 +32,25 @@ router.post('/signup', passport.authenticate('local-signup', {
     failureRedirect : '/signup',
     failureFlash : true
 }));
+router.get('/auth/facebook', passport.authenticate('facebook', {
+      scope : ['public_profile', 'email']
+    }));
+
+    // handle the callback after facebook has authenticated the user
+  router.get('/auth/facebook/callback',
+        passport.authenticate('facebook', {
+            successRedirect : '/profile',
+            failureRedirect : '/'
+        }));
 
 /* GET Profile page. */
 router.get('/profile', isLoggedIn, function(req, res, next) {
-    res.render('profile', { title: 'Profile Page', user : req.user, avatar: gravatar.url(req.user.email ,  {s: '100', r: 'x', d: 'retro'}, true) });
-});
+  console.log(req);
+  if(req.user.facebook.id!=null)
+    res.render('profile', { title: 'Profile Page', user : req.user, avatar:req.user.facebook.pic });
+else {
+      res.render('profile', { title: 'Profile Page', user : req.user, avatar:gravatar.url(req.user.email ,  {s: '100', r: 'x', d: 'retro'}, true) });
+}});
 
 /* check if user is logged in */
 function isLoggedIn(req, res, next) {
