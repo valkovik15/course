@@ -10,17 +10,41 @@ var users = require('./server/routes/users');
 // Import comments controller
 var comments = require('./server/controllers/comments');
 
-// ODM With Mongoose
-var mongoose = require('mongoose');
-// Modules to store session
 var session    = require('express-session');
-var MongoStore = require('connect-mongo')(session);
 // Import Passport and Warning flash modules
 var passport = require('passport');
 var flash = require('connect-flash');
-
+var env = require('dotenv').load()
+var MySQLStore = require('express-mysql-session')(session);
 var app = express();
+var exphbs = require('express-handlebars');
+//Models
+var models = require("./models");
+var options = {
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: 'vk1506',
+    database: 'session_test'
+};
 
+var sessionStore = new MySQLStore(options);
+app.use(session({
+    secret: 'sometextgohere',
+    saveUninitialized: true,
+    resave: true,
+    store: sessionStore
+}));
+//Sync Database
+models.sequelize.sync().then(function() {
+
+    console.log('Nice! Database looks fine')
+
+}).catch(function(err) {
+
+    console.log(err, "Something went wrong with the Database Update!")
+
+});
 // view engine setup
 app.set('views', path.join(__dirname, 'server/views/pages'));
 app.set('view engine', 'ejs');
@@ -28,14 +52,10 @@ app.set('view engine', 'ejs');
 // Database configuration
 var config = require('./server/config/config.js');
 // connect to our database
-mongoose.connect(config.url);
-// Check if MongoDB is running
-mongoose.connection.on('error', function() {
-	console.error('MongoDB Connection Error. Make sure MongoDB is running.');
-});
+
 
 // Passport configuration
-require('./server/config/passport')(passport);
+require('./server/config/passport')(passport, models.user);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -54,17 +74,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // required for passport
 // secret for session
-app.use(session({
-    secret: 'sometextgohere',
-    saveUninitialized: true,
-    resave: true,
-    //store session on MongoDB using express-session + connect mongo
-    store: new MongoStore({
-        url: config.url,
-        collection : 'sessions'
-    })
-}));
-
 // Init passport authentication
 app.use(passport.initialize());
 // persistent login sessions

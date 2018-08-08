@@ -45,8 +45,8 @@ router.get('/auth/facebook', passport.authenticate('facebook', {
 
 /* GET Profile page. */
 router.get('/profile', isLoggedIn, function(req, res, next) {
-  console.log(req);
-  if(req.user.facebook.id!=null)
+  console.log(req.user);
+  if(req.user.pic!=null)
     res.render('profile', { title: 'Profile Page', user : req.user, avatar:req.user.facebook.pic });
 else {
       res.render('profile', { title: 'Profile Page', user : req.user, avatar:gravatar.url(req.user.email ,  {s: '100', r: 'x', d: 'retro'}, true) });
