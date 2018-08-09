@@ -20,7 +20,11 @@ fs
     });
 
 Object.keys(db).forEach(function(modelName) {
+    console.log("Modelname");
+    console.log(modelName);
+
     if ("associate" in db[modelName]) {
+        console.log( db);
         db[modelName].associate(db);
     }
 });
