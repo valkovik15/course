@@ -1,7 +1,7 @@
 // load passport module
 var bCrypt = require('bcrypt-nodejs');
 var LocalStrategy    = require('passport-local').Strategy;
-  var FacebookStrategy = require('passport-facebook').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 // load up the user model
 var configAuth = require('./auth');
 
@@ -133,72 +133,63 @@ module.exports = function(passport, user) {
         }));
 
 
-     passport.use(new FacebookStrategy({
+    passport.use(new FacebookStrategy({
 
-       // pull in our app id and secret from our auth.js file
-       clientID        : configAuth.facebookAuth.clientID,
-       clientSecret    : configAuth.facebookAuth.clientSecret,
-       callbackURL     : configAuth.facebookAuth.callbackURL,
-       profileFields:['id', 'displayName', 'photos', 'emails']
-   },
+            // pull in our app id and secret from our auth.js file
+            clientID        : configAuth.facebookAuth.clientID,
+            clientSecret    : configAuth.facebookAuth.clientSecret,
+            callbackURL     : configAuth.facebookAuth.callbackURL,
+            profileFields:['id', 'displayName', 'photos', 'emails']
+        },
 
-   // facebook will send back the token and profile
-   function(token, refreshToken, profile, done) {
-    console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');       // asynchronous
-       process.nextTick(function() {
+        // facebook will send back the token and profile
+        function(token, refreshToken, profile, done) {
+            console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');       // asynchronous
+            process.nextTick(function() {
 
-           // find the user in the database based on their facebook id
-           User.findOne({where: { name :  profile.displayName }}).then( function(err, user) {
-               console.log(profile);
-               // if there is an error, stop everything and return that
-               // ie an error connecting to the database
-               if (err)
-               {
-                   console.log('ERROR!');
-                   if(err.oauthError)
-                 {
-                        var oauthError = JSON.parse(err.oauthError.data);
-                        res.send(oauthError.error.message);
-                    } else {return done(err);}
-                  }
+                // find the user in the database based on their facebook id
+                User.findOne({where: { name :  profile.displayName }}).then( user=> {
+                    console.log(profile);
+                    // if there is an error, stop everything and return that
+                    // ie an error connecting to the database
 
 
-               // if the user is found, then log them in
-               if (user) {
-                   console.log('Hey');
-                   return done(null, user); // user found, return that user
-               } else {
-                   var data = {
-                           email:profile.emails[0].value,
-                           pic: profile.photos[0].value,
-                           name: profile.displayName,
-                       password:null
-                       };
-                   console.log('data');
-                   console.log(data);
-                   User.create(data).then(function(newUser, created) {
+                    // if the user is found, then log them in
+                    if (user) {
+                        console.log('Hey');
+                        return done(null, user); // user found, return that user
+                    } else {
+                        var data = {
+                            email:profile.emails[0].value,
+                            pic: profile.photos[0].value,
+                            name: profile.displayName,
+                            password:null
+                        };
+                        console.log('data');
+                        console.log(data);
+                        User.create(data).then(function(newUser, created) {
 
-                       if (!newUser) {
-                           console.log('What');
-                           return done(null, false);
+                            if (!newUser) {
+                                console.log('What');
+                                return done(null, false);
 
-                       }
+                            }
 
-                       if (newUser) {
-                           console.log('okey');
-                           return done(null, newUser);
+                            if (newUser) {
+                                console.log('okey');
+                                return done(null, newUser);
 
-                       }
+                            }
 
-                   });
-                   // if there is no user found with that facebook id, create them
+                        });
+                        // if there is no user found with that facebook id, create them
 
-                  console.log(profile);
-                   // save our user to the database
-               }
-             });
-      });
+                        console.log(profile);
+                        // save our user to the database
+                    }
+                });
+            });
 
-  }));
+        }));
 
 };
