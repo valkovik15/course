@@ -3,7 +3,6 @@ var router = express.Router();
 var passport = require('passport');
 // get gravatar icon from email
 var gravatar = require('gravatar');
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express from server folder' });
@@ -23,11 +22,7 @@ router.post('/login', passport.authenticate('local-login', {
     failureRedirect : '/login',
     failureFlash : true
 }));
-router.get('/publish', function(req, res)
-{
-    console.log(req.query);
-    res.render('index', { title: 'Signup Page', message: req.flash('signupMessage') });
-});
+
 
 
 

@@ -86,6 +86,40 @@ app.use('/users', users);
 // Setup routes for comments
 app.get('/comments', comments.hasAuthorization, comments.list);
 app.post('/comments', comments.hasAuthorization, comments.create);
+app.get('/publish', function(req, res)
+{
+    if(req.isAuthenticated()) {
+        console.log(req.query);
+        console.log(models);
+        var Posts = models.Posts;
+        models.Posts.findOne({
+            where: {
+                title: req.query.title
+            }
+        }).then(function (post) {
+            if (post) {
+                return done(null, false, {
+                    message: 'That title is already taken'
+                });
+            } else
+                var data_ =
+                    {
+                        title: req.query.title,
+                        body: req.query.text,
+                        userId:req.user.id
+                    };
+            Posts.create(data_).then(function (newPost, created) {
+
+            });
+        });
+        res.redirect('/profile');
+    }
+    else
+    {
+        res.redirect('/login');
+    }
+
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
