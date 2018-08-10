@@ -7,6 +7,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='style/font.css' rel='stylesheet'>
     <link href='style/editor.css' rel='stylesheet'>
+    <% include ../partials/stylesheet %>
 </head>
 <body ng-app="markdownEditor" ng-controller="markdownEditorController">
 <div class="toolbox">
@@ -37,5 +38,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-sanitize.js"></script>
 <script src="js/marked.js"></script>
 <script src="js/editor.js"></script>
+<script src="js/editor.js"></script>
+<% include ../partials/header %>
+<% include ../partials/footer %>
+<% include ../partials/javascript %>
 </body>
 </html>

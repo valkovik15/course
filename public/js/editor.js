@@ -12,7 +12,14 @@ app.controller("markdownEditorController", ["$scope", function ($scope) {
     };
 
     $scope.onPublish = function() {
-    	alert("Write your own publish script here!");
+
+        var data = $.param({
+            text:$scope.editor.src,
+            title:$scope.editor.title
+                            });
+        alert(data);
+        window.location.href="http://localhost:3000/publish/?"+data
+
     };
 
     $scope.onEditor = function(param) {
@@ -58,10 +65,10 @@ app.controller("markdownEditorController", ["$scope", function ($scope) {
 				$scope.insertPlacehodler("# Header", 2, 0);
     			break;
     		case "url":
-    			
+
     			var iUrl = prompt("Enter URL here:");
     			if (iUrl == "") {
-    				iUrl = "http://codedaily.vn";
+    				iUrl = "http://google.com";
     			}
     			sel.target.value += "\n";
     			// insert new
@@ -70,10 +77,10 @@ app.controller("markdownEditorController", ["$scope", function ($scope) {
 
     			break;
     		case "img":
-    			
+
     			var iUrl = prompt("Enter image URL here:");
     			if (iUrl == "") {
-    				iUrl = "http://codedaily.vn";
+    				iUrl = "http://google.com";
     			}
     			sel.target.value += "\n";
     			// insert new
@@ -88,7 +95,7 @@ app.controller("markdownEditorController", ["$scope", function ($scope) {
     			} else {
     				// add new
     				sel.target.value += "\n";
-    				$scope.insertPlacehodler("<pre class='brush: language'>code here</pre>", 19, 17);
+    				$scope.insertPlacehodler("`code here`", 19, 17);
     			}
     			break;
     		case "horline":

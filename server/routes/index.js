@@ -23,6 +23,13 @@ router.post('/login', passport.authenticate('local-login', {
     failureRedirect : '/login',
     failureFlash : true
 }));
+router.get('/publish', function(req, res)
+{
+    console.log(req.query);
+    res.render('index', { title: 'Signup Page', message: req.flash('signupMessage') });
+});
+
+
 
 /* GET Signup */
 router.get('/signup', function(req, res) {
