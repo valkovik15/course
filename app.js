@@ -19,6 +19,7 @@ var MySQLStore = require('express-mysql-session')(session);
 var app = express();
 var exphbs = require('express-handlebars');
 //Models
+var markdown = require( "markdown" ).markdown;
 var models = require("./models");
 var options = {
     host: 'localhost',
@@ -89,17 +90,41 @@ app.get('/comments', function(req, res)
 {
     var targ;
     var Posts = models.Posts;
-    Posts.findAll({})
+    var User=models.user;
+    Posts.findAll({include:[User]})
         .then(function(posts)
     {
+        posts.forEach(
+            function(item, i, arr) {
+                item.pic=item.user.pic||gravatar.url(item.user.email ,  {s: '80', r: 'x', d: 'retro'}, true);
+                item.body=item.body.split(' ').slice(0, 50).join(" ");
+                posts[i].body=markdown.toHTML( item.body );
+                console.log( markdown.toHTML( item.body ) );
+                arr=markdown.toHTML( item.body ).match(/[\n]*<h3>[^<]*<\/h3>[\n]*/g);
+                if(arr!=null) {
+                    arr = arr.filter(function (e) {
+                        return e
+                    });
+                }
+                console.log(arr);
+                arr=markdown.toHTML( item.body ).split(/[\n]*<h3>[^<]*<\/h3>[\n]*/g);
+                if(arr!=null) {
+                    arr = arr.filter(function (e) {
+                        return e
+                    });
+                }
+                console.log(arr);
+                console.log(comments);
+            }
+        );
+
         res.render('comments', {
             title: 'Articles Page',
-            comments: posts,
-            gravatar: (gravatar.url(comments.email ,  {s: '80', r: 'x', d: 'retro'}, true))
+            comments: posts
         });
     })
         .catch((err) => {
-            alert(err);
+            console.log(err);
             res.redirect('/profile');
         });
     console.log(targ);

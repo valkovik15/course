@@ -53,11 +53,11 @@
         <div class="lead">
             <div class="list-group">
             <% comments.forEach(function(comments){ %>
-                    <a href="#" class="list-group-item">
-                        <img src="<%= gravatar %>" alt="" style="float: left; margin-right: 10px">
+                    <a href="/article?id=<%=comments.id%>" class="list-group-item">
+                        <img src="<%= comments.pic %>" alt="" style="float: left; margin-right: 10px">
                         <div class="comments">
                             <h4 class="list-group-item-heading"><%= comments.title %></h4>
-                            <p class="list-group-item-text"><%= comments.body %></p>
+                            <div class="list-group-item-text"><%- comments.body %>...</div>
                             <small class="text-muted">By: <%= comments.userId %></small>
                         </div>
                     </a>
