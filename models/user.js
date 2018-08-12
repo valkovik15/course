@@ -12,9 +12,7 @@ module.exports = (sequelize, DataTypes) => {
                 isEmail: true
             }
         },
-        password: {type:DataTypes.STRING,
-            allowNull: false
-        },
+        password:DataTypes.STRING,
         pic: DataTypes.STRING
     }, {});
     User.associate = function(models) {

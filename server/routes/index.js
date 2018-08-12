@@ -7,7 +7,8 @@ var gravatar = require('gravatar');
 router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express from server folder' });
 });
-router.get('/new', function(req, res, next) {
+router.get('/new', isLoggedIn, function(req, res, next) {
+
     res.render('new', { title: 'Express from server folder' });
 });
 

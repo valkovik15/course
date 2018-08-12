@@ -27,6 +27,7 @@ var options = {
     password: 'vk1506',
     database: 'session_test'
 };
+var gravatar=require('gravatar');
 
 var sessionStore = new MySQLStore(options);
 app.use(session({
@@ -84,7 +85,26 @@ app.use(flash());
 app.use('/', routes);
 app.use('/users', users);
 // Setup routes for comments
-app.get('/comments', comments.hasAuthorization, comments.list);
+app.get('/comments', function(req, res)
+{
+    var targ;
+    var Posts = models.Posts;
+    Posts.findAll({})
+        .then(function(posts)
+    {
+        res.render('comments', {
+            title: 'Articles Page',
+            comments: posts,
+            gravatar: (gravatar.url(comments.email ,  {s: '80', r: 'x', d: 'retro'}, true))
+        });
+    })
+        .catch((err) => {
+            alert(err);
+            res.redirect('/profile');
+        });
+    console.log(targ);
+
+});
 app.post('/comments', comments.hasAuthorization, comments.create);
 app.get('/publish', function(req, res)
 {

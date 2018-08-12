@@ -14,6 +14,7 @@ router.get('/comments', hasAuthorization, function(req, res) {
                 message: error
             });
         }
+
         // Render result
         res.render('comments', {
             title: 'Comments Page',
