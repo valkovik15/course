@@ -1,6 +1,6 @@
 angular
   .module('MyApp', ['ngMaterial', 'ngMessages', 'material.svgAssetsCache','ngSanitize'])
-  .controller('AppCtrl', function ($scope, $timeout, $mdSidenav, $http) {
+  .controller('AppCtrl', function ($scope, $timeout, $mdSidenav, $http, $location) {
       $scope.index=0;
 
       console.log($scope);
@@ -9,6 +9,7 @@ angular
               .then(function(response) {
                       $scope.steps = response.data.steps;
                       $scope.toc = response.data.toc;
+                      $scope.title=response.data.title;
               });
       });
 
@@ -72,6 +73,12 @@ angular
           if($scope.index>0) {
               $scope.index--;
           }
+      };
+      $scope.change= function(x)
+      {
+          console.log(x);
+          $scope.index=$scope.toc.findIndex(function(e){return e==x});
+          console.log($scope.index);
       };
 
   })

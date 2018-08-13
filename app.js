@@ -133,15 +133,11 @@ app.get('/comments', function(req, res)
 
 });
 app.get('/getsteps', function(req, res) {
-    console.log(req.query);
     models.Posts.findOne({where: {id:req.query.id}})
         .then(function(post) {
-            console.log(post);
             post.body = markdown.toHTML(post.body);
             post.body=marked(post.body);
-            console.log(post.body);
             toc = post.body.match(/[\n]*<h3>[^<]*<\/h3>[\n]*/g);
-            console.log(toc);
             if (toc != null) {
                 toc = toc.filter(function (e) {
                     return e
@@ -153,46 +149,18 @@ app.get('/getsteps', function(req, res) {
                     return e
                 });
             }
-            console.log(steps);
-            console.log(JSON.stringify(steps));
-            console.log(post.title);
-            data={"steps":steps, "toc":toc};
-            console.log(data);
+
+            data={"steps":steps, "toc":toc, "title":post.title};
             res.send(data);
         });
 });
 app.get('/article', function(req, res) {
-    console.log(req.query);
-    models.Posts.findOne({where: {id:req.query.id}})
-        .then(function(post) {
-            console.log(post);
-            post.body = markdown.toHTML(post.body);
-            console.log(post.body);
-            toc = post.body.match(/[\n]*<h3>[^<]*<\/h3>[\n]*/g);
-            console.log(toc);
-            if (toc != null) {
-                toc = toc.filter(function (e) {
-                    return e
-                });
-            }
-            steps = post.body.split(/[\n]*<h3>[^<]*<\/h3>[\n]*/g);
-            if (steps != null) {
-                steps = steps.filter(function (e) {
-                    return e
-                });
-            }
-            console.log(steps);
-            console.log(JSON.stringify(steps));
-            console.log(post.title);
+
 
     res.render('article',{
 
-        title: post.title,
-        steps:JSON.stringify(steps),
-        toc:toc,
         id:req.query.id
     });
-        });
 });
 app.post('/comments', comments.hasAuthorization, comments.create);
 app.get('/publish', function(req, res)

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Basic Usage</title>
+    <title>{{title}}</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
 
     <link rel='stylesheet' href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.10/angular-material.css'>
@@ -24,8 +24,10 @@
         <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4">
 
             <md-toolbar class="md-theme-indigo">
-                <h1 class="md-toolbar-tools">Wiki</h1>
-                <h1 class="md-toolbar-tools" allign="center"><%= title%></h1>
+                <h1 >Wiki</h1>
+                <h2  allign="center">{{title}}</h2>
+                <h3   ng-repeat="x in toc" ng-click="change(x)">{{x.slice(x.indexOf('>')+1, x.lastIndexOf('<'))}}</h3>
+
             </md-toolbar>
             <md-content layout-padding="" ng-controller="LeftCtrl">
                 <md-button ng-click="close()" class="md-primary" hide-gt-md="">
