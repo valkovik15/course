@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
   var Posts = sequelize.define('Posts', {
     title: DataTypes.STRING,
     body: DataTypes.TEXT
-  }, {});
+  }, {charset: 'utf8',
+      collate: 'utf8_general_ci'});
     Posts.associate = function(models) {
         Posts.belongsToMany(models.Tags,{
         through: 'PostsTags',

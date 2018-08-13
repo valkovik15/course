@@ -61,6 +61,19 @@ angular
           });
       };
     }
+      $scope.add = function()
+      {
+          if($scope.index<$scope.steps.length-1) {
+              $scope.index++;
+          }
+      };
+      $scope.sub = function()
+      {
+          if($scope.index>0) {
+              $scope.index--;
+          }
+      };
+
   })
   .controller('LeftCtrl', function ($scope, $timeout, $mdSidenav, $log) {
     $scope.close = function () {

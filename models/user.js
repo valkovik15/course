@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
         },
         password:DataTypes.STRING,
         pic: DataTypes.STRING
-    }, {});
+    }, {charset: 'utf8',
+        collate: 'utf8_general_ci'});
     User.associate = function(models) {
         User.hasMany(models.Posts);
         // associations can be defined here

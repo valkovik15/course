@@ -53,8 +53,8 @@
                        </div>
                     </md-card-content>
                     <md-card-actions layout="row" layout-align="end center">
-                        <md-button>Action 1</md-button>
-                        <md-button>Action 2</md-button>
+                        <md-button ng-click="sub()" ng-show="index">Previous step</md-button>
+                        <md-button ng-click="add()" ng-show="steps.length-index-1">Next step</md-button>
                     </md-card-actions>
                 </md-card>
 
