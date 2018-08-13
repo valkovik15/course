@@ -16,14 +16,16 @@
 
 <body>
 
-<div ng-controller="AppCtrl" layout="column" style="height:500px;" ng-cloak="" class="sidenavdemoBasicUsage" ng-app="MyApp">
+<div ng-controller="AppCtrl" layout="column" style="height:500px;" ng-cloak="" class="sidenavdemoBasicUsage" ng-app="MyApp" ng-init="postid='<%= id %>'; steps=null; toc=null">
+
 
     <section layout="row" flex="">
 
         <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4">
 
             <md-toolbar class="md-theme-indigo">
-                <h1 class="md-toolbar-tools">Sidenav Left</h1>
+                <h1 class="md-toolbar-tools">Wiki</h1>
+                <h1 class="md-toolbar-tools" allign="center"><%= title%></h1>
             </md-toolbar>
             <md-content layout-padding="" ng-controller="LeftCtrl">
                 <md-button ng-click="close()" class="md-primary" hide-gt-md="">
@@ -36,30 +38,19 @@
             </md-content>
 
         </md-sidenav>
-
-        <md-content flex="" layout-padding="">
+                <md-content flex="" layout-padding="">
 
             <div layout="column" layout-align="top center">
                 <md-card>
 
                     <md-card-title>
                         <md-card-title-text>
-                            <span class="md-headline">Action buttons</span>
+                            <span class="md-headline" ng-bind-html="toc[index]">  </span>
                         </md-card-title-text>
                     </md-card-title>
                     <md-card-content>
-                        <p>
-                            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-                            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-                        </p>
-                        <p>
-                            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-                            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-                        </p>
-                        <p>
-                            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-                            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-                        </p>
+                       <div ng-bind-html="steps[index]">
+                       </div>
                     </md-card-content>
                     <md-card-actions layout="row" layout-align="end center">
                         <md-button>Action 1</md-button>
@@ -113,7 +104,10 @@ Use of this source code is governed by an MIT-style license that can be foundin 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.js'></script>
 <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js'></script>
 <script src='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.10/angular-material.js'></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
 
+</script>
 
 
 <script  src="js/index.js"></script>

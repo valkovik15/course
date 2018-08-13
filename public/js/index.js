@@ -1,6 +1,17 @@
 angular
-  .module('MyApp', ['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
-  .controller('AppCtrl', function ($scope, $timeout, $mdSidenav, $log) {
+  .module('MyApp', ['ngMaterial', 'ngMessages', 'material.svgAssetsCache','ngSanitize'])
+  .controller('AppCtrl', function ($scope, $timeout, $mdSidenav, $http) {
+      $scope.index=0;
+
+      console.log($scope);
+      $scope.$watch('postid', function () {
+          $http.get("/getsteps/?id="+$scope.postid)
+              .then(function(response) {
+                      $scope.steps = response.data.steps;
+                      $scope.toc = response.data.toc;
+              });
+      });
+
     $scope.toggleLeft = buildDelayedToggler('left');
     $scope.toggleRight = buildToggler('right');
     $scope.isOpenRight = function(){
@@ -73,6 +84,6 @@ angular
 
 
 /**
-Copyright 2018 Google Inc. All Rights Reserved. 
+Copyright 2018 Google Inc. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
 **/

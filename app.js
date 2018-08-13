@@ -20,6 +20,7 @@ var app = express();
 var exphbs = require('express-handlebars');
 //Models
 var markdown = require( "markdown" ).markdown;
+var marked=require('marked');
 var models = require("./models");
 var options = {
     host: 'localhost',
@@ -98,7 +99,8 @@ app.get('/comments', function(req, res)
             function(item, i, arr) {
                 item.pic=item.user.pic||gravatar.url(item.user.email ,  {s: '80', r: 'x', d: 'retro'}, true);
                 item.body=item.body.split(' ').slice(0, 50).join(" ");
-                posts[i].body=markdown.toHTML( item.body );
+                item.body=markdown.toHTML( item.body );
+                item.body=marked(item.body);
                 console.log( markdown.toHTML( item.body ) );
                 arr=markdown.toHTML( item.body ).match(/[\n]*<h3>[^<]*<\/h3>[\n]*/g);
                 if(arr!=null) {
@@ -109,7 +111,7 @@ app.get('/comments', function(req, res)
                 console.log(arr);
                 arr=markdown.toHTML( item.body ).split(/[\n]*<h3>[^<]*<\/h3>[\n]*/g);
                 if(arr!=null) {
-                    arr = arr.filter(function (e) {
+                    arr = arr.filter(function (e) {posts[i]
                         return e
                     });
                 }
@@ -119,6 +121,7 @@ app.get('/comments', function(req, res)
         );
 
         res.render('comments', {
+
             title: 'Articles Page',
             comments: posts
         });
@@ -127,8 +130,69 @@ app.get('/comments', function(req, res)
             console.log(err);
             res.redirect('/profile');
         });
-    console.log(targ);
 
+});
+app.get('/getsteps', function(req, res) {
+    console.log(req.query);
+    models.Posts.findOne({where: {id:req.query.id}})
+        .then(function(post) {
+            console.log(post);
+            post.body = markdown.toHTML(post.body);
+            post.body=marked(post.body);
+            console.log(post.body);
+            toc = post.body.match(/[\n]*<h3>[^<]*<\/h3>[\n]*/g);
+            console.log(toc);
+            if (toc != null) {
+                toc = toc.filter(function (e) {
+                    return e
+                });
+            }
+            steps = post.body.split(/[\n]*<h3>[^<]*<\/h3>[\n]*/g);
+            if (steps != null) {
+                steps = steps.filter(function (e) {
+                    return e
+                });
+            }
+            console.log(steps);
+            console.log(JSON.stringify(steps));
+            console.log(post.title);
+            data={"steps":steps, "toc":toc};
+            console.log(data);
+            res.send(data);
+        });
+});
+app.get('/article', function(req, res) {
+    console.log(req.query);
+    models.Posts.findOne({where: {id:req.query.id}})
+        .then(function(post) {
+            console.log(post);
+            post.body = markdown.toHTML(post.body);
+            console.log(post.body);
+            toc = post.body.match(/[\n]*<h3>[^<]*<\/h3>[\n]*/g);
+            console.log(toc);
+            if (toc != null) {
+                toc = toc.filter(function (e) {
+                    return e
+                });
+            }
+            steps = post.body.split(/[\n]*<h3>[^<]*<\/h3>[\n]*/g);
+            if (steps != null) {
+                steps = steps.filter(function (e) {
+                    return e
+                });
+            }
+            console.log(steps);
+            console.log(JSON.stringify(steps));
+            console.log(post.title);
+
+    res.render('article',{
+
+        title: post.title,
+        steps:JSON.stringify(steps),
+        toc:toc,
+        id:req.query.id
+    });
+        });
 });
 app.post('/comments', comments.hasAuthorization, comments.create);
 app.get('/publish', function(req, res)
