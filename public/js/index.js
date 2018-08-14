@@ -1,4 +1,4 @@
-angular
+var App=angular
   .module('MyApp', ['ngMaterial', 'ngMessages', 'material.svgAssetsCache','ngSanitize'])
   .controller('AppCtrl', function ($scope, $timeout, $mdSidenav, $http, $location) {
       $scope.index=0;
@@ -100,7 +100,91 @@ angular
           $log.debug("close RIGHT is done");
         });
     };
-  });
+  })
+.controller('RatingController', RatingController)
+.directive('starRating', starRating);
+
+function RatingController($scope, $http) {
+    //set star rating to 0 first
+    this.starrate = 0;
+    $scope.update = function (nextStage) {
+        $scope.selection = nextStage;
+        if (nextStage == "rating1" || nextStage == "rating2"){
+            $scope.selection  = "stage1";
+        }
+        if(nextStage == "rating3"){
+            $scope.selection = "stage3";
+        }
+
+        if(nextStage == "rating4" || nextStage =="rating5"){
+            $scope.selection = "stage2";
+        }
+    };
+
+    //set opinion checkbox array
+
+    $scope.opinionList = [{ desc: "Availability", id: "opt-1"}, {desc: "Staff Friendliness", id: "opt-2"}, {desc: "Information", id: "opt-3"},
+        {desc: "Loyalty Card", id: "opt-4"}, {desc: "Location", id: "opt-5"}, {desc: "Opening Hours", id: "opt-6"}, {desc: "Solutions", id: "opt-7"}, {desc: "Wait Time", id: "opt-8"}];
+
+    $scope.isActive = function(updateNo){
+        if (updateNo) return true;
+        else return false;
+    };
+
+    //function to submit form with json
+
+    $scope.submitForm=function(){
+        var data = $scope.ratingForm;
+        $http.post('http://exampleseverurl', JSON.stringify(data));
+        console.log(data);
+    }
+}
+
+
+
+
+/* ###### Star rating function ######*/
+
+
+function starRating() {
+    return {
+        restrict: 'EA',
+        template:
+            '<ul class="star-rating">' +
+            '<li ng-repeat="star in stars" class="star" ng-class="{filled: star.filled}" ng-click="clicked($index);">' +
+            '<span class="font-fa fa-star"></span>' + // or &#9733
+            '</li>' +
+            '</ul>',
+        scope: {
+            ratingValue: '=ngModel',
+            max: '=?'
+        },
+        link: function (scope) {
+            // if there is no defined max attribute default is 5
+            if (scope.max == undefined) {
+                scope.max = 5;
+            }
+
+            function updateStars() {
+                scope.stars = [];
+                for (var i = 0; i < scope.max; i++) {
+                    scope.stars.push({
+                        filled: i < scope.ratingValue
+                    });
+                }
+            };
+            scope.clicked = function (index) {
+                scope.ratingValue = index + 1;
+            };
+            // watch for event Handling changes update newValue as number of stars clicked
+            scope.$watch("ratingValue", function (oldValue, newValue,$scope) {
+                if (newValue || newValue === 0) {
+                    updateStars();
+                }
+            });
+        }
+    };
+}
 
 
 /**

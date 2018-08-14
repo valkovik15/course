@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en" ng-app="MyApp" ng-controller="AppCtrl">
 
 <head>
     <meta charset="UTF-8">
@@ -8,35 +8,37 @@
 
     <link rel='stylesheet' href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.10/angular-material.css'>
     <link rel='stylesheet' href='https://material.angularjs.org/1.1.10/docs.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
     <link rel="stylesheet" href="css/style.css">
 
-
+    <% include ../partials/stylesheet %>
 </head>
 
 <body>
+<% include ../partials/header %>
+<div  layout="column" style="height:500px;" ng-cloak="" class="sidenavdemoBasicUsage"  ng-init="postid='<%= id %>'">
 
-<div ng-controller="AppCtrl" layout="column" style="height:500px;" ng-cloak="" class="sidenavdemoBasicUsage" ng-app="MyApp" ng-init="postid='<%= id %>'; steps=null; toc=null">
-
-
-    <section layout="row" flex="">
+    <style>
+       section {margin-top:60px}
+        .btn-1 {text-transform: none}
+    </style>
+    <section layout="row" flex="" layout-align>
 
         <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4">
 
             <md-toolbar class="md-theme-indigo">
                 <h1 >Wiki</h1>
-                <h2  allign="center">{{title}}</h2>
-                <h3   ng-repeat="x in toc" ng-click="change(x)">{{x.slice(x.indexOf('>')+1, x.lastIndexOf('<'))}}</h3>
+                <h4  align="center" >{{title}}</h4>
+                <md-button    class="btn-1" ng-repeat="x in toc" ng-click="change(x)">{{x.slice(x.indexOf('>')+1, x.lastIndexOf('<'))}}</md-button>
 
             </md-toolbar>
             <md-content layout-padding="" ng-controller="LeftCtrl">
                 <md-button ng-click="close()" class="md-primary" hide-gt-md="">
                     Close Sidenav Left
                 </md-button>
-                <p hide="" show-gt-md="">
-                    This sidenav is locked open on your device. To go back to the default behavior,
-                    narrow your display.
-                </p>
+
             </md-content>
 
         </md-sidenav>
@@ -53,6 +55,18 @@
                     <md-card-content>
                        <div ng-bind-html="steps[index]">
                        </div>
+                        <div  ng-controller="RatingController as ratingForm"  class="rating-module"  ng-switch on="selection">
+                            <form name="frmRating" role="form" novalidate  ng-submit="submitForm(data)">
+                                <div class="stage1" ng-switch-default ng-form="" name="frmRatingStep1">
+                                    <div class="holder">
+                                        <h3 class="uppercase font-proxima align-center">Rate Your Experience</h3>
+                                        <h2>Please rate your experience with us.</h2>
+                                    </div>
+                                    <directive star-rating class="holder border-block"  ng-model="ratingForm.starrate" max="5" ng-click="update('rating'+ratingForm.starrate)"></directive>
+
+                                </div>
+
+                            </form>
                     </md-card-content>
                     <md-card-actions layout="row" layout-align="end center">
                         <md-button ng-click="sub()" ng-show="index">Previous step</md-button>
