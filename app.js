@@ -154,12 +154,34 @@ app.get('/getsteps', function(req, res) {
             res.send(data);
         });
 });
+app.get('/getstars', function(req, res) {
+    models.Grades.findOne({where: {postId:req.query.id, userId:req.query.user}})
+        .then(function(grade) {
+            console.log("grade"+grade);
+
+            if (grade == null) {
+                data={"stars":0};
+                res.send(data);
+                }
+             else{
+                data={"stars":grade.num};
+                res.send(data);
+            }
+
+
+        });
+});
 app.get('/article', function(req, res) {
-
-
+console.log('data');
+var x=req.user;
+if(x)
+{
+    x=x.id;
+}
     res.render('article',{
 
-        id:req.query.id
+        id:req.query.id,
+        user:x
     });
 });
 app.post('/comments', comments.hasAuthorization, comments.create);
@@ -197,6 +219,35 @@ app.get('/publish', function(req, res)
     }
 
 });
+app.get('/rank',  function(req, res)
+{
+    if(req.isAuthenticated()) {
+        var Posts = models.Posts;
+        if (req.user) {
+            console.log(req.query);
+            models.Grades
+                .findOrCreate({where: {userId: req.query.user, PostId: req.query.post}, defaults: {num: req.query.num}})
+                .spread((grade, created) => {
+                    console.log(grade.get({
+                        plain: true
+                    }));
+                    console.log("created");
+                    console.log(created);
+                    if (!created) {
+                        grade.updateAttributes({num: req.query.num});
+                    }
+
+                });
+            res.send({"message": 'Thanks for your opinion'});
+        }
+    }
+    else
+    {
+        res.send({"message":'You should log in to leave rankings'});
+    }
+
+}
+);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

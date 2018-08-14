@@ -89,13 +89,6 @@ main {
 }
 
 /* ####### Form Module ######### */
-.holder.small-star-block {
-    position: relative;
-}
-.holder.small-star-block .overlay {
-    position: absolute;
-    z-index: 1;
-}
 
 .star-rating {
     display: -webkit-flex;
@@ -103,9 +96,13 @@ main {
     -webkit-flex-direction: row;
     flex-direction: row;
     padding: 0;
+    font-size:0.5em;
 }
 .star-rating li {
-    margin-right: 2%;
+    margin-right: 0%;
+}
+ul, li {
+    margin-left: 0px;
 }
 .star-rating .star {
     color: #E8E8E8;
@@ -115,7 +112,7 @@ main {
     cursor: pointer;
 }
 .star-rating .star:hover {
-    color: #1670AF;
+    color: cyan;
 }
 .star-rating .star:focus {
     color: #1670AF;
@@ -127,105 +124,3 @@ main {
     color: #666;
 }
 
-.stage2 .star-rating, .stage3 .star-rating {
-    pointer-events: none;
-    cursor: default;
-    opacity: 0.9;
-}
-.stage2 .star-rating .star, .stage3 .star-rating .star {
-    font-size: 2.5em;
-}
-
-.opinionList .checkbox-holder {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: row;
-    flex-direction: row;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
-    max-width: 475px;
-}
-.opinionList .checkbox-items {
-    -webkit-flex: 30% 0;
-    flex: 30% 0;
-    margin-right: 1em;
-    margin-bottom: 1em;
-    position: relative;
-}
-.opinionList .checkbox-items label {
-    display: block;
-    padding: 1em;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    border: 1px solid #B3B3B4;
-    color: #595959;
-    font-size: 1.4em;
-}
-.opinionList .checkbox-items label.active {
-    background: #1670AF;
-    color: #fff;
-}
-.opinionList .checkbox-items input[type="checkbox"] {
-    position: absolute;
-    z-index: -1;
-    visibility: hidden;
-}
-
-.stage3 .checkbox-items {
-    -webkit-flex: auto;
-    flex: auto;
-    margin-right: 0.5em;
-    margin-bottom: 0.5em;
-    pointer-events: none;
-    cursor: default;
-    opacity: 0.9;
-}
-.stage3 .checkbox-items label.active {
-    background: #fff;
-    color: #1670AF;
-    border: 1px solid #1670AF;
-    font-weight: bold;
-    padding: 0.5em 1em;
-}
-.stage3 .border-block {
-    padding-top: 0;
-    padding-bottom: 0;
-}
-.stage3 textarea {
-    display: block;
-    width: 97.5%;
-    height: 100%;
-    padding: 0.5em;
-    min-height: 266px;
-    border: 0;
-    font-size: 1.6em;
-}
-
-/* ########## Button modules ################ */
-.btn {
-    margin-top: 1em;
-    font-size: 1.6em;
-    border: none;
-    background: none;
-    min-width: 110px;
-}
-.btn span {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 0.25em;
-}
-.btn span.fa-check-circle {
-    background: white;
-    color: #1670AF;
-    font-size: 2.8em;
-}
-.btn span.fa-times-circle {
-    background: white;
-    color: #E8E8E8;
-    font-size: 2.8em;
-}

@@ -21,18 +21,23 @@
 <div  layout="column" style="height:500px;" ng-cloak="" class="sidenavdemoBasicUsage"  ng-init="postid='<%= id %>'">
 
     <style>
-       section {margin-top:60px}
+       section {margin-top:70px}
         .btn-1 {text-transform: none}
     </style>
     <section layout="row" flex="" layout-align>
 
         <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4">
 
-            <md-toolbar class="md-theme-indigo">
+            <md-toolbar class="deep-orange">
                 <h1 >Wiki</h1>
                 <h4  align="center" >{{title}}</h4>
                 <md-button    class="btn-1" ng-repeat="x in toc" ng-click="change(x)">{{x.slice(x.indexOf('>')+1, x.lastIndexOf('<'))}}</md-button>
-
+                <div  ng-controller="RatingController as ratingForm"  class="rating-module"  ng-init="postid='<%= id %>'; user='<%= user %>'">
+                    <div class="stage1"  name="frmRatingStep1">
+                        <directive star-rating class="holder border-block"  ng-model="ratingForm.starrate" max="5" ng-click="update('rating'+ratingForm.starrate)"></directive>
+                        <md-button ng-click="rank();">Leave your rank!</md-button>
+                    </div>
+                </div>
             </md-toolbar>
             <md-content layout-padding="" ng-controller="LeftCtrl">
                 <md-button ng-click="close()" class="md-primary" hide-gt-md="">
@@ -55,18 +60,7 @@
                     <md-card-content>
                        <div ng-bind-html="steps[index]">
                        </div>
-                        <div  ng-controller="RatingController as ratingForm"  class="rating-module"  ng-switch on="selection">
-                            <form name="frmRating" role="form" novalidate  ng-submit="submitForm(data)">
-                                <div class="stage1" ng-switch-default ng-form="" name="frmRatingStep1">
-                                    <div class="holder">
-                                        <h3 class="uppercase font-proxima align-center">Rate Your Experience</h3>
-                                        <h2>Please rate your experience with us.</h2>
-                                    </div>
-                                    <directive star-rating class="holder border-block"  ng-model="ratingForm.starrate" max="5" ng-click="update('rating'+ratingForm.starrate)"></directive>
 
-                                </div>
-
-                            </form>
                     </md-card-content>
                     <md-card-actions layout="row" layout-align="end center">
                         <md-button ng-click="sub()" ng-show="index">Previous step</md-button>
