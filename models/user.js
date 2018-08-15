@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         collate: 'utf8_general_ci'});
     User.associate = function(models) {
         User.hasMany(models.Posts);
+        User.hasMany(models.Grades);
         // associations can be defined here
     };
     return User;

@@ -87,16 +87,30 @@ app.use(flash());
 app.use('/', routes);
 app.use('/users', users);
 // Setup routes for comments
+function count_avg(arr)
+{
+    const reducer = (accumulator, currentValue) => accumulator + currentValue.dataValues.num;
+    f=arr.reduce(reducer, 0);
+    if(f>0) {
+        f = f / arr.length;
+    }
+    else
+    {
+        return 0;
+    }
+    return f
+}
 app.get('/comments', function(req, res)
 {
     var targ;
     var Posts = models.Posts;
     var User=models.user;
-    Posts.findAll({include:[User]})
+    Posts.findAll({include:[{model:User},{model:models.Grades}]})
         .then(function(posts)
     {
         posts.forEach(
             function(item, i, arr) {
+                avg=count_avg(item.Grades);
                 item.pic=item.user.pic||gravatar.url(item.user.email ,  {s: '80', r: 'x', d: 'retro'}, true);
                 item.body=item.body.split(' ').slice(0, 50).join(" ");
                 item.body=markdown.toHTML( item.body );
@@ -115,8 +129,6 @@ app.get('/comments', function(req, res)
                         return e
                     });
                 }
-                console.log(arr);
-                console.log(comments);
             }
         );
 

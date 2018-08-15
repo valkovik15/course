@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'tagId'
     });
         Posts.belongsTo(models.user);
+        Posts.hasMany(models.Grades);
         // associations can be defined here
     };
 
