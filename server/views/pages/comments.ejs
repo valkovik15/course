@@ -4,20 +4,7 @@
     <% include ../partials/stylesheet %>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 </head>
-<style>
-.icon{max-width:70px;}
-.icon span {
-height: 20px;
-width: 20px;
-display: inline-block;
-background-color: red;
-border-style:dashed;
-border-width: 1px;
-}
-.icon span:nth-child(3n+3) {
-background-color:blue;
-}
-</style>
+
 <body>
     <% include ../partials/header %>
     <div class="container">
@@ -74,24 +61,24 @@ background-color:blue;
                             <div class="list-group-item-text"><%- comments.body %>...</div>
                             <small class="text-muted">By: <%= comments.userId %></small>
                             <div align="right">
-                            <span style="font-size: 1rem;">
-                <span style="color: Gold;">
-  <i class="fas fa-star"></i>
-                </span>
-                <span style="color: LightSlateGrey;">
-  <i class="fas fa-star"></i>
-                </span>
-                </span>
-</div>
+                                <%= comments.avg%>
+                                <% for(var i=0; comments.avg-i>=1; i++) {%>
+                                <span style="color: Gold">
+                                    <i class="fas fa-star"></i>
+                                     </span>
+                                <% };%>
+                                    <% for(var i=0; i<5-comments.avg; i++) {%>
+                            <span style="color: LightSlateGrey;">
+                            <i class="fas fa-star"></i>
+                            </span>
+                                    <% };%>
+                </div>
                         </div>
                     </a>
 
             <% }); %>
             </div>
-            <div class='icon'>
-                <span></span><span></span><span></span>
 
-            </div>
 
 
 

@@ -111,31 +111,21 @@ app.get('/comments', function(req, res)
         posts.forEach(
             function(item, i, arr) {
                 avg=count_avg(item.Grades);
+                item.avg=avg;
+                console.log(item.avg);
                 item.pic=item.user.pic||gravatar.url(item.user.email ,  {s: '80', r: 'x', d: 'retro'}, true);
                 item.body=item.body.split(' ').slice(0, 50).join(" ");
                 item.body=markdown.toHTML( item.body );
                 item.body=marked(item.body);
-                console.log( markdown.toHTML( item.body ) );
-                arr=markdown.toHTML( item.body ).match(/[\n]*<h3>[^<]*<\/h3>[\n]*/g);
-                if(arr!=null) {
-                    arr = arr.filter(function (e) {
-                        return e
-                    });
-                }
-                console.log(arr);
-                arr=markdown.toHTML( item.body ).split(/[\n]*<h3>[^<]*<\/h3>[\n]*/g);
-                if(arr!=null) {
-                    arr = arr.filter(function (e) {posts[i]
-                        return e
-                    });
-                }
+
             }
         );
 
         res.render('comments', {
 
             title: 'Articles Page',
-            comments: posts
+            comments: posts,
+            avg:avg
         });
     })
         .catch((err) => {
