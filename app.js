@@ -100,6 +100,26 @@ function count_avg(arr)
     }
     return f
 }
+var Pusher = require('pusher');
+
+var pusher = new Pusher({
+    appId: '579029',
+    key: '90263c93819cebfbdc47',
+    secret: '8f123346f4005a3f0add',
+    cluster: 'eu',
+    encrypted: true
+});
+
+pusher.trigger('my-channel', 'my-event', {
+    "message": "hello world"
+});
+app.get( '/trigger', function( req, res ) {
+    var id=req.query.id;
+    console.log(req.body);
+    pusher.trigger( 'my-channel', 'my-event', { id: id });
+    res.send(id);
+} );
+
 app.get('/comments', function(req, res)
 {
     var targ;
@@ -155,7 +175,8 @@ app.get('/getsteps', function(req, res) {
             data={"steps":steps, "toc":toc, "title":post.title};
             res.send(data);
         });
-});
+})
+
 app.get('/getstars', function(req, res) {
     models.Grades.findOne({where: {postId:req.query.id, userId:req.query.user}})
         .then(function(grade) {

@@ -97,7 +97,7 @@ var App=angular
 
     };
   })
-  .controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log) {
+  .controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log, $http) {
     $scope.close = function () {
       // Component lookup should always be available since we are not using `ng-if`
       $mdSidenav('right').close()
@@ -105,6 +105,23 @@ var App=angular
           $log.debug("close RIGHT is done");
         });
     };
+      $scope.submit = function () {
+          console.log($scope.$parent.postid);
+          if($scope.$parent) {
+              console.log($scope.$parent);
+
+          }
+          console.log($scope.data);
+          $http.get("/trigger/?id="+$scope.postid+'&user='+$scope.user+'&data='+$scope.data)
+              .then(function(response) {
+                  if(!$scope.todos)
+                  {
+                      $scope.todos=[];
+                  }
+                  $scope.todos.push({text:"Очень-очень сильно"});
+              });
+
+      }
   })
 .controller('RatingController', RatingController)
 .directive('starRating', starRating);

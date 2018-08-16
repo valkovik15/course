@@ -1,0 +1,87 @@
+
+#comments {
+    width: 90%;
+    padding: 2% 5%;
+    text-align: left;
+    float: left;
+    background-color: rgb(187, 255, 203);
+}
+
+.comments-title {
+    float: left;
+    text-align: center;
+    width: 100%;
+    margin: 0 0 2% 0;
+}
+
+.comment-block {
+    width: 100%;
+    float: left;
+    box-shadow: 0px 0px 10px #4F8A5D;
+    border-radius: 5px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.comment-autor {
+    width: 15%;
+    float: left;
+}
+
+.fn {
+    width: 100%;
+    float: left;
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+    background-color: rgb(60, 60, 60);
+}
+
+.comment-content {
+    width: 85%;
+    float: left;
+}
+
+.comment-content p {
+    float: left;
+    width: 90%;
+    padding: 2% 5%;
+}
+
+.commentmetadata {
+    float: left;
+    font-size: 12px;
+    padding: 0 0 2% 5%;
+    max-width: 50%;
+}
+
+.reply {
+    float: right;
+    font-size: 12px;
+    padding-right: 5%;
+}
+
+.comment-list li {
+    margin: 1% 0;
+    list-style:none;
+    width: 100%;
+    float: left;
+}
+
+ol .children {
+    float: right;
+    padding: 0 0 0 40px;
+}
+
+ol .children li {
+    margin: 0.5% 0;
+}
+
+#respond {
+    text-align: left;
+    float: left;
+    width: 90%;
+    padding: 2% 5%;
+    margin: 0;
+    background-color: lavender;
+}

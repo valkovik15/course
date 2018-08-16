@@ -12,13 +12,17 @@
 
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://js.pusher.com/4.3/pusher.min.js"></script>
 
     <% include ../partials/stylesheet %>
 </head>
 
 <body>
+<style>
+
+</style>
 <% include ../partials/header %>
-<div  layout="column" style="height:500px;" ng-cloak="" class="sidenavdemoBasicUsage"  ng-init="postid='<%= id %>'">
+<div  layout="column" style="height:500px;" ng-cloak="" class="sidenavdemoBasicUsage"  ng-init="postid='<%= id %>'; user='<%= user %>'">
 
     <style>
        section {margin-top:70px}
@@ -83,14 +87,41 @@
 
             <md-toolbar class="md-theme-light">
                 <h1 class="md-toolbar-tools">Sidenav Right</h1>
+                <div class="md-toolbar-tools">
+                    <span>Normal</span>
+                </div>
             </md-toolbar>
-            <md-content ng-controller="RightCtrl" layout-padding="">
+            <md-content ng-controller="RightCtrl"  layout-padding="" id="wrap">
                 <form>
                     <md-input-container>
                         <label for="testInput">Test input</label>
                         <input id="testInput" ng-model="data" md-autofocus="" type="text">
                     </md-input-container>
+                    <md-button ng-click="submit()" class="md-primary">
+                        Submit comment
+                    </md-button>
                 </form>
+                <md-list flex="" ng-model="list">
+                    <md-divider></md-divider>
+                    <md-subheader class="md-no-sticky">Comments</md-subheader>
+                    <md-list-item class="md-3-line" ng-repeat="item in todos">
+                        <img ng-src="{{item.face}}?20" class="md-avatar" alt="{{todos[0].who}}">
+                        <div class="md-list-item-text">
+                            <h3>Я люблю тебя</h3>
+                            <p>{{item.text}}</p>
+                            <p>Это навечно</p>
+                            <div class="md-toolbar-tools">
+
+                                <span flex></span>
+                                <md-button class="md-icon-button">
+                                    <md-icon md-font-icon=" fa-heart-o" class="fa"></md-icon>
+                                </md-button>
+                            </div>
+                        </div>
+                    </md-list-item>
+
+
+                </md-list>
                 <md-button ng-click="close()" class="md-primary">
                     Close Sidenav Right
                 </md-button>
@@ -116,6 +147,27 @@ Use of this source code is governed by an MIT-style license that can be foundin 
 <script src='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.10/angular-material.js'></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
+<script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('90263c93819cebfbdc47', {
+        cluster: 'eu',
+        encrypted: true
+    });
+
+    var channel = pusher.subscribe('my-channel');
+
+    channel.bind('my-event', function(data) {
+        var scope = angular.element(document.getElementById("wrap")).scope();
+        console.log(scope);
+        /*scope.$apply(function () {
+            scope.updateCustomRequest(data, type, res);
+        });*/
+    });
+
+</script>
 
 </script>
 
