@@ -111,6 +111,31 @@ var App=angular
           $log.debug("close RIGHT is done");
         });
     };
+      $scope.onlike = function (data) {
+          // Component lookup should always be available since we are not using `ng-if`
+            $http.get("/like?post="+$scope.$parent.postid+'&user='+$scope.$parent.user+'&id='+data.item.iden+'&action='+!data.item.liked)
+              .then(function(response) {
+                  res=response.data;
+                  console.log(res);
+                  if(res=='error') {
+                      alert('Log in, please');
+                  }
+                  else
+                  {
+                      data.item.liked=!data.item.liked;
+                      if(data.item.liked)
+                      {
+                          data.item.likes+=1;
+                      }
+                      else
+                      {
+                          data.item.likes-=1;
+                      }
+                      console.log(data.item);
+                  }
+
+              });
+      };
       $scope.submit = function () {
           console.log($scope.$parent.postid);
           if($scope.$parent) {

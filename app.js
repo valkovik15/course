@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./server/routes/index');
 var users = require('./server/routes/users');
 // Import comments controller
-var comments = require('./server/controllers/comments');
+
 
 var session    = require('express-session');
 // Import Passport and Warning flash modules
@@ -137,6 +137,9 @@ app.get( '/trigger', function( req, res ) {
         res.send({pic:"-1"});
     }
 });
+function check(item) {
+    return id== 18;
+}
 app.get( '/com', function( req, res ) {
     var post = req.query.id;
     var user=req.query.user;
@@ -152,14 +155,44 @@ app.get( '/com', function( req, res ) {
                     pic = item.user.pic || gravatar.url(item.user.email, {s: '80', r: 'x', d: 'retro'}, true);
                     name = item.user.name;
                     text = item.dataValues.text;
+                    console.log("AAAAAAAAAAAAAAAAAAAAAAAAA")
+
                     data.push(
-                    {pic:pic, text:text, name:name, likes:item.Likes.length});
-                    console.log(item.Likes.length);
+                    {pic:pic, text:text, name:name, likes:item.Likes.length, liked:!!item.Likes.find(item => item.userId==user), iden:item.id});
                 }
             );
             console.log(data);
             res.send(data);
         });
+});
+app.get( '/like', function( req, res ) {
+    if(req.user) {
+        if (req.query.action=='true') {
+            models.Likes
+                .build({CommentId: req.query.id, PostId: req.query.post, userId: req.query.user})
+                .save()
+                .then(anotherTask => {
+                    console.log('Created');
+                });
+        }
+        else {
+            models.Likes.destroy({
+                where: {
+                    CommentId: req.query.id, userId: req.query.user
+                }
+            }).then(function (item) {
+                    console.log('Deleted successfully');
+                }
+                , function (err) {
+                    console.log(err);
+                });
+
+        }
+            res.send('y');
+    }
+    else {
+        res.send('error');
+    }
 });
 
 
@@ -250,7 +283,6 @@ if(x)
         user:x
     });
 });
-app.post('/comments', comments.hasAuthorization, comments.create);
 app.get('/publish', function(req, res)
 {
     if(req.isAuthenticated()) {

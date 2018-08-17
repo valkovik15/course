@@ -110,12 +110,12 @@
                         <div class="md-list-item-text">
                             <h3>{{item.name}}</h3>
                             <p>{{item.text}}</p>
-                            <p> </p>
                             <div class="md-toolbar-tools">
 
-                                <span flex></span>
-                                <md-button class="md-icon-button">
-                                    <md-icon md-font-icon=" fa-heart-o" class="fa"></md-icon>
+                                <span flex>  <p> {{item.likes}} like(s)</p></span>
+                                <md-button class="md-icon-button" ng-click="onlike(this)">
+                                    <md-icon md-font-icon=" fa-heart-o" ng-hide="item.liked" class="fa"></md-icon>
+                                    <md-icon md-font-icon=" fa-heart" ng-show="item.liked" class="fa"></md-icon>
                                 </md-button>
                             </div>
                         </div>
