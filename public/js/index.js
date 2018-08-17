@@ -98,6 +98,12 @@ var App=angular
     };
   })
   .controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log, $http) {
+      $http.get("/com/?id="+$scope.$parent.postid+'&user='+$scope.$parent.user)
+          .then(function(response) {
+              $scope.todos=response.data;
+              console.log("TODO");
+              console.log(this);
+          });
     $scope.close = function () {
       // Component lookup should always be available since we are not using `ng-if`
       $mdSidenav('right').close()
@@ -109,18 +115,30 @@ var App=angular
           console.log($scope.$parent.postid);
           if($scope.$parent) {
               console.log($scope.$parent);
-
           }
-          console.log($scope.data);
-          $http.get("/trigger/?id="+$scope.postid+'&user='+$scope.user+'&data='+$scope.data)
+          console.log($scope);
+          $http.get("/trigger/?id="+$scope.postid+'&user='+$scope.user+'&socket='+$scope.socket+"&text="+$scope.data)
               .then(function(response) {
                   if(!$scope.todos)
                   {
                       $scope.todos=[];
                   }
-                  $scope.todos.push({text:"Очень-очень сильно"});
+                  if(response.data.pic!=-1) {
+                      $scope.todos.push(response.data);
+                      console.log(this.todos);
+                  }
+                  else
+                  {
+                      alert("Log in first!");
+                  }
               });
 
+      };
+      $scope.upd = function (data) {
+          console.log($scope.$parent.postid);
+          if($scope.$parent) {
+          }
+          $scope.todos.push(data);
       }
   })
 .controller('RatingController', RatingController)
@@ -132,7 +150,6 @@ function RatingController($scope, $http) {
     $scope.$watch('user', function () {
         $http.get("/getstars/?id="+$scope.postid+'&user='+$scope.user)
             .then(function(response) {
-                console.log(response.data);
                 $scope.ratingForm.starrate=response.data.stars;
             });
     });

@@ -114,11 +114,55 @@ pusher.trigger('my-channel', 'my-event', {
     "message": "hello world"
 });
 app.get( '/trigger', function( req, res ) {
-    var id=req.query.id;
-    console.log(req.body);
-    pusher.trigger( 'my-channel', 'my-event', { id: id });
-    res.send(id);
-} );
+    var id = req.query.id;
+    var user=req.query.user;
+    if (user) {
+        console.log(req.query);
+        var User = models.user;
+
+        User.findOne({where: {id: req.query.user}}).then(user => {
+            data={text:req.query.text, userId:req.query.user, PostId:req.query.id};
+            models.Comments
+                .build(data)
+                .save()
+                .then(anotherTask => {
+                    data={pic:user.pic, text:req.query.text, name:user.name, likes:0};
+                    pusher.trigger('my-channel', 'my-event', data, req.query.socket);
+                    res.send(data);// you can now access the currently saved task with the variable anotherTask... nice!
+                });
+        });
+    }
+    else {
+        console.log('Nope');
+        res.send({pic:"-1"});
+    }
+});
+app.get( '/com', function( req, res ) {
+    var post = req.query.id;
+    var user=req.query.user;
+    var User = models.user;
+    data=[];
+    console.log(req.query);
+    var Comments= models.Comments;
+    Comments.findAll({include: [{model: User},{model:models.Likes}], where: {PostId:post}})
+        .then(function (comments) {
+            data=[];
+            comments.forEach(
+                function (item, i, arr) {
+                    pic = item.user.pic || gravatar.url(item.user.email, {s: '80', r: 'x', d: 'retro'}, true);
+                    name = item.user.name;
+                    text = item.dataValues.text;
+                    data.push(
+                    {pic:pic, text:text, name:name, likes:item.Likes.length});
+                    console.log(item.Likes.length);
+                }
+            );
+            console.log(data);
+            res.send(data);
+        });
+});
+
+
 
 app.get('/comments', function(req, res)
 {
@@ -171,7 +215,6 @@ app.get('/getsteps', function(req, res) {
                     return e
                 });
             }
-
             data={"steps":steps, "toc":toc, "title":post.title};
             res.send(data);
         });
