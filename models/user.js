@@ -13,7 +13,10 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         password:DataTypes.STRING,
-        pic: DataTypes.STRING
+        pic: DataTypes.STRING,
+        role: DataTypes.ENUM('user', 'admin'),
+        isActive: DataTypes.BOOLEAN
+
     }, {charset: 'utf8',
         collate: 'utf8_general_ci'});
     User.associate = function(models) {

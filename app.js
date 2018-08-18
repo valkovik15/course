@@ -195,7 +195,31 @@ app.get( '/like', function( req, res ) {
     }
 });
 
+app.get('/admin', function(req, res)
+{
+    var User=models.user;
+    User.findAll({})
+        .then(function(users)
+        {
+            var data=[];
+            users.forEach(
+                function(item, i, arr) {
+                    data.push({name:item.name, email:item.email, role:item.role, picture:item.pic||gravatar.url(item.email ,  {s: '80', r: 'x', d: 'retro'}, true), status:item.isActive, id:item.id})
 
+                }
+            );
+
+            res.render('admin', {
+
+                users:data
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.redirect('/profile');
+        });
+
+});
 
 app.get('/comments', function(req, res)
 {
@@ -269,6 +293,39 @@ app.get('/getstars', function(req, res) {
 
 
         });
+});
+app.get('/ban', function(req, res)
+{
+    id=req.query.id;
+    models.user.findOne({where: {id:id}})
+        .then(function(user) {
+                    user.updateAttributes({isActive:!user.isActive});
+        });
+    return res.redirect('/admin');
+});
+app.get('/set', function(req, res)
+{
+    id=req.query.id;
+    models.user.findOne({where: {id:id}})
+        .then(function(user) {
+            user.updateAttributes({role:'admin'});
+        });
+    return res.redirect('/admin');
+});
+app.get('/del', function(req, res)
+{
+    id=req.query.id;
+    models.user.destroy({
+        where: {
+           id:id
+        }
+    }).then(function (item) {
+            console.log('Deleted successfully');
+        }
+        , function (err) {
+            console.log(err);
+        });
+    return res.redirect('/admin');
 });
 app.get('/article', function(req, res) {
 console.log('data');

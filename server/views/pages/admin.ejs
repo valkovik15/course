@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Responsive Table</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+      <link rel="stylesheet" href="../admin/css/style.css">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+
+  <div class="table-users">
+   <div class="header">Users</div>
+
+   <table cellspacing="0">
+      <tr align="center">
+         <th>Picture</th>
+         <th>Name</th>
+         <th>Email</th>
+         <th width="10%">Role</th>
+         <th width="10%">Status</th>
+
+         <th width="37%">Controls</th>
+      </tr>
+       <% users.forEach(function(item) { %>
+      <tr>
+         <td><img src="<%=item.picture%>" alt="" /></td>
+         <td><%= item.name%></td>
+         <td><%= item.email%></td>
+         <td><%= item.role%></td>
+         <td><%= item.status%></td>
+         <td><button type="button" class="btn btn-primary" onclick="pro(this)" id="<%= item.id%>">Go to profile</button><button type="button" class="btn btn-primary" onclick="ban(this)" id="<%= item.id%>">Ban/Unban</button><button type="button" class="btn btn-primary" onclick="del(this)" id="<%= item.id%>">Delete</button><button type="button" class="btn btn-primary" id="<%= item.id%>" onclick="set(this)">Set admin</button></td>
+      </tr>
+       <% }); %>
+<script>
+    function pro(data)
+    {
+        console.log(data.id);
+    }
+    function ban(data)
+    {
+        console.log(data.id);
+        window.location.href='http://localhost:3000/ban?id='+data.id;
+    }
+    function del(data)
+    {
+        console.log(data.id);
+        window.location.href='http://localhost:3000/del?id='+data.id;
+    }
+    function set(data)
+    {
+        console.log(data.id);
+        window.location.href='http://localhost:3000/set?id='+data.id;
+    }
+    </script>
+   </table>
+</div>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+
+</html>

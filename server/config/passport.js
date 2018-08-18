@@ -119,7 +119,8 @@ module.exports = function(passport, user) {
                     {
                         email: email,
                         password: userPassword,
-                        name: req.body.name
+                        name: req.body.name,
+                        role: 'user', isActive:true
                     };
                 User.create(data).then(function (newUser, created) {
                     if (!newUser) {
@@ -144,7 +145,7 @@ module.exports = function(passport, user) {
 
         // facebook will send back the token and profile
         function(token, refreshToken, profile, done) {
-            console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');       // asynchronous
+          // asynchronous
             process.nextTick(function() {
 
                 // find the user in the database based on their facebook id
@@ -163,7 +164,8 @@ module.exports = function(passport, user) {
                             email:profile.emails[0].value,
                             pic: profile.photos[0].value,
                             name: profile.displayName,
-                            password:null
+                            password:null,
+                             role:'user', isActive:true
                         };
                         console.log('data');
                         console.log(data);
