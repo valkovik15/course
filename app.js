@@ -374,6 +374,29 @@ app.get('/publish', function(req, res)
     }
 
 });
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+    res.redirect('/login');
+};
+app.get('/profile', isLoggedIn, function(req, res, next) {
+    console.log(req.user);
+    if(req.user.role=='admin')
+    {
+        console.log('admin');
+        id=req.query.id;
+
+    }
+    else
+    {
+       id=req.user.id;
+    }
+    models.user.findOne({include: [{model: models.Posts}], where: {id:id}})
+        .then(function(user) {
+            console.log(user);
+            res.render('profile', { title: 'Profile Page', user : user.dataValues, avatar:user.pic||gravatar.url(req.user.email ,  {s: '100', r: 'x', d: 'retro'}), posts:user.Posts});
+        });
+});
 app.get('/rank',  function(req, res)
 {
     if(req.isAuthenticated()) {
