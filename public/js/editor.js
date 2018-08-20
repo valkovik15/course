@@ -21,8 +21,8 @@ app.controller("markdownEditorController", ["$scope", function ($scope) {
             text:$scope.editor.src,
             title:$scope.editor.title
                             });
-        alert(data);
-        window.location.href="http://localhost:3000/publish/?"+data
+        if(window.location.search)
+        window.location.href="http://localhost:3000/publish/?"+data+'&'+window.location.search.slice(1);
 
     };
 

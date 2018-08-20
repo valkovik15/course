@@ -389,23 +389,22 @@ app.get('/publish', function(req, res)
         var Posts = models.Posts;
         models.Posts.findOne({
             where: {
-                title: req.query.title
+                id: req.query.id
             }
         }).then(function (post) {
             if (post) {
-                return done(null, false, {
-                    message: 'That title is already taken'
-                });
-            } else
+                post.updateAttributes({body: req.query.text, title:req.query.title});
+            } else {
                 var data_ =
                     {
                         title: req.query.title,
                         body: req.query.text,
-                        userId:req.user.id
+                        userId: req.user.id
                     };
-            Posts.create(data_).then(function (newPost, created) {
+                Posts.create(data_).then(function (newPost, created) {
 
-            });
+                });
+            }
         });
         res.redirect('/profile');
     }
