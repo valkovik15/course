@@ -51,32 +51,41 @@
             </div>
         </div>
         <hr>
-        <div class="lead">
-            <div class="list-group">
+        <div class="ui four stackable cards">
             <% comments.forEach(function(comments){ %>
-                    <a href="/article?id=<%=comments.id%>" class="list-group-item">
-                        <img src="<%= comments.pic %>" alt="" style="float: left; margin-right: 10px">
-                        <div class="comments">
-                            <h4 class="list-group-item-heading"><%= comments.title %></h4>
-                            <div class="list-group-item-text"><%- comments.body %>...</div>
-                            <small class="text-muted">By: <%= comments.userId %></small>
-                            <div align="right">
-                                <%= comments.avg%>
-                                <% for(var i=0; comments.avg-i>=1; i++) {%>
-                                <span style="color: Gold">
+            <a class="ui card" href="/article?id=<%=comments.id%>">
+                <div class="content">
+                    <div class="header"><%= comments.title %></div>
+                    <div class="meta">
+                        <span class="category">Some tags</span>
+                    </div>
+                    <div class="description">
+                        <%- comments.body %>
+                    </div>
+                </div>
+                <div class="extra content">
+                    <div class="right floated author">
+                        <img class="ui avatar image" src="<%=comments.pic%>">
+                        <%= comments.user.name %>
+                    </div>
+                    <div align="left">
+                        <%= comments.avg%>
+                        <% for(var i=0; comments.avg-i>=1; i++) {%>
+                            <span style="color: Gold">
                                     <i class="fas fa-star"></i>
                                      </span>
-                                <% };%>
-                                    <% for(var i=0; i<5-comments.avg; i++) {%>
-                            <span style="color: LightSlateGrey;">
+                        <% };%>
+                        <% for(var i=0; i<5-comments.avg; i++) {%>
+                        <span style="color: LightSlateGrey;">
                             <i class="fas fa-star"></i>
                             </span>
-                                    <% };%>
-                </div>
-                        </div>
-                    </a>
 
-            <% }); %>
+                                    <% };%>
+                    </div>
+                </div>
+            </a>
+            <% });%>
+        </div>
             </div>
 
 

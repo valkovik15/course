@@ -1,39 +1,39 @@
-<!-- Fixed navbar -->
-<div class="pos-f-t">
-    <div class="collapse" id="navbar-header">
-        <div class="container bg-inverse p-a-1">
-            <h3>Collapsed content</h3>
-            <p>Toggleable via the navbar brand.</p>
-        </div>
+<link rel="stylesheet" type="text/css" href="../dist/semantic.min.css">
+<script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<div class ui sticky>
+<div class="ui stackable menu">
+    <div class="header item" >
+        Wiki
     </div>
-    <nav class="navbar navbar-light navbar-static-top">
-        <div class="container">
-            <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
-                Menu
-            </button>
-            <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
-                <a class="navbar-brand" href="/">Wiki</a>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Sign in</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/signup">Sign up</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/profile">Profile</a>
-                    </li>
+    <a class="item" href="/comments">
+        Feed
+    </a>
+    <a class="item" href="/login">
+        Log in
+    </a>
+    <a class="item" href="/new">
+        Create your instruction!
+    </a>
+    <a class="item" href="/signup">
+        Sign up
+    </a>
+    <a href="/auth/facebook" class="btn btn-primary"> Facebook</a>
+    <div class="right menu">
+    <div class="ui search">
+        <div class="ui icon input">
+            <input class="prompt" placeholder="Creating bomb..." type="text">
+            <i class="search icon"></i>
+        </div>
+        <div class="results"></div>
+    </div>
+    </div>
+</div>
+</div>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/comments">Comments</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/new">Add a guide</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/article">View an article</a>
-                    </li>
-                    <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
@@ -41,11 +41,4 @@
   js.src = 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v3.1&appId=210456179651489&autoLogAppEvents=1';
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<li> <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a></div>
-</li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</div>
-<!-- Fixed navbar -->
+

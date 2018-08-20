@@ -137,9 +137,22 @@ app.get( '/trigger', function( req, res ) {
         res.send({pic:"-1"});
     }
 });
-function check(item) {
-    return id== 18;
-}
+app.get('/edit', isLoggedIn, function(req, res, next) {
+    models.Posts.findOne({where: {id:req.query.id}})
+        .then(function(post) {
+            if((post.userId==req.user.id)||(req.user.role='admin'))
+            {
+                res.render('new', { title: post.title, body:post.body, title:post.title});
+            }
+            else
+            {
+                res.send('Hacking is bad!');
+            }
+        });
+
+});
+
+
 app.get( '/com', function( req, res ) {
     var post = req.query.id;
     var user=req.query.user;
@@ -312,6 +325,11 @@ app.get('/set', function(req, res)
         });
     return res.redirect('/admin');
 });
+app.get('/testy', function(req, res)
+{
+
+    res.render('testy');
+});
 app.get('/del', function(req, res)
 {
     id=req.query.id;
@@ -326,6 +344,29 @@ app.get('/del', function(req, res)
             console.log(err);
         });
     return res.redirect('/admin');
+});
+app.get('/delet', function(req, res)
+{
+    id=req.query.id;
+    models.Posts.destroy({
+        where: {
+            id:id
+        }
+    }).then(function (item) {
+            console.log('Deleted successfully');
+        }
+        , function (err) {
+            console.log(err);
+        });
+    if(req.query.back) {
+        back=req.query.back;
+        back[0]='?';
+        res.redirect('/profile'+back);
+    }
+    else
+    {
+        res.redirect('/profile');
+    }
 });
 app.get('/article', function(req, res) {
 console.log('data');
@@ -375,27 +416,61 @@ app.get('/publish', function(req, res)
 
 });
 function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
+    if (req.isAuthenticated()) {
+        console.log("AUTH"+req.isAuthenticated());
         return next();
+    }
     res.redirect('/login');
 };
 app.get('/profile', isLoggedIn, function(req, res, next) {
     console.log(req.user);
+
     if(req.user.role=='admin')
     {
         console.log('admin');
-        id=req.query.id;
+        id=req.query.id||req.user.id;
 
     }
     else
     {
        id=req.user.id;
     }
-    models.user.findOne({include: [{model: models.Posts}], where: {id:id}})
-        .then(function(user) {
-            console.log(user);
-            res.render('profile', { title: 'Profile Page', user : user.dataValues, avatar:user.pic||gravatar.url(req.user.email ,  {s: '100', r: 'x', d: 'retro'}), posts:user.Posts});
+    var user;
+    models.Posts.findAll({include:[{model:models.user},{model:models.Grades}], where:{userId:id}})
+        .then(function(posts)
+        {
+            posts.forEach(
+                function(item, i, arr) {
+                    user=item.user;
+                    avg=count_avg(item.Grades);
+                    item.grade=avg;
+                    }
+            );
+            if(user) {
+                console.log(posts);
+                res.render('profile', {
+                    title: 'Profile Page',
+                    user: user.dataValues,
+                    avatar: user.pic || gravatar.url(req.user.email, {s: '100', r: 'x', d: 'retro'}),
+                    posts: posts
+                })
+            }
+            else
+            {
+                models.user.findOne({where:{id:id}})
+                    .then(function(user)
+                {
+                    res.render('profile', {
+                        title: 'Profile Page',
+                        user: user.dataValues,
+                        avatar: user.pic || gravatar.url(req.user.email, {s: '100', r: 'x', d: 'retro'}),
+                        posts: posts
+                    })
+
+                })
+            }
         });
+
 });
 app.get('/rank',  function(req, res)
 {

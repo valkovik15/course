@@ -5,11 +5,11 @@ var passport = require('passport');
 var gravatar = require('gravatar');
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express from server folder' });
+    res.redirect('/comments');
 });
 router.get('/new', isLoggedIn, function(req, res, next) {
 
-    res.render('new', { title: 'Express from server folder' });
+    res.render('new', { title: 'New article' });
 });
 
 /* GET login page. */

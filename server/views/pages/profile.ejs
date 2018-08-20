@@ -27,7 +27,7 @@
                         <strong>Name</strong>: <%= user.name %><br>
                         <strong>Email</strong>: <%= user.email %>
                     </p>
-
+                    <a href="/logout" class="btn btn-default">Logout</a>
                 </div>
             </div>
             <div class="container" align="center">
@@ -44,99 +44,24 @@
                     <a href="#" class="batn red">Delete</a>
                     <tr>
                         <th data-field="state" data-checkbox="true"></th>
-                        <th data-field="prenom" data-filter-control="input" data-sortable="true">Title</th>
+                        <th data-field="title" data-filter-control="input" data-sortable="true">Title</th>
                         <th data-field="date" data-filter-control="select" data-sortable="true">Date</th>
-                        <th data-field="examen" data-filter-control="select" data-sortable="true">Grade</th>
-                        <th data-field="note" data-sortable="true">Note</th>
+                        <th data-field="grade" data-filter-control="input" data-sortable="true">Grade</th>
+                        <th data-field="descr" data-sortable="true">Description</th>
                         <th data-field="btn"  data-formatter="TableActions"> Buttons</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
-                        <td>Valérie</td>
-                        <td>01/09/2015</td>
-                        <td>Français</td>
-                        <td>12/20</td>
-                        <td></td>
+                    <% posts.forEach(function(item) { %>
+                    <tr id="<%=item.id%>">
+                        <td class="bs-checkbox "><input data-index="<%=item.id%>"  name="btSelectItem" type="checkbox"></td>
+                        <td><%= item.dataValues.title%></td>
+                        <td><%= item.createdAt%></td>
+                        <td><%= item.grade%></td>
+                        <td><%= item.status%></td>
                     </tr>
-                    <tr>
-                        <td class="bs-checkbox "><input data-index="1" name="btSelectItem" type="checkbox"></td>
-                        <td>Eric</td>
-                        <td>05/09/2015</td>
-                        <td>Philosophie</td>
-                        <td>8/20</td>
-                    </tr>
-                    <tr>
-                        <td class="bs-checkbox "><input data-index="2" name="btSelectItem" type="checkbox"></td>
-                        <td>Valentin</td>
-                        <td>05/09/2015</td>
-                        <td>Philosophie</td>
-                        <td>4/20</td>
-                    </tr>
-                    <tr>
-                        <td class="bs-checkbox "><input data-index="3" name="btSelectItem" type="checkbox"></td>
-                        <td>Valérie</td>
-                        <td>05/09/2015</td>
-                        <td>Philosophie</td>
-                        <td>10/20</td>
-                    </tr>
-                    <tr>
-                        <td class="bs-checkbox "><input data-index="4" name="btSelectItem" type="checkbox"></td>
-                        <td>Eric</td>
-                        <td>01/09/2015</td>
-                        <td>Français</td>
-                        <td>14/20</td>
-                    </tr>
-                    <tr>
-                        <td class="bs-checkbox "><input data-index="5" name="btSelectItem" type="checkbox"></td>
-                        <td>Valérie</td>
-                        <td>07/09/2015</td>
-                        <td>Mathématiques</td>
-                        <td>19/20</td>
-                    </tr>
-                    <tr>
-                        <td class="bs-checkbox "><input data-index="6" name="btSelectItem" type="checkbox"></td>
-                        <td>Valentin</td>
-                        <td>01/09/2015</td>
-                        <td>Français</td>
-                        <td>11/20</td>
-                    </tr>
-                    <tr>
-                        <td class="bs-checkbox "><input data-index="7" name="btSelectItem" type="checkbox"></td>
-                        <td>Eric</td>
-                        <td>01/10/2015</td>
-                        <td>Philosophie</td>
-                        <td>8/20</td>
-                    </tr>
-                    <tr>
-                        <td class="bs-checkbox "><input data-index="8" name="btSelectItem" type="checkbox"></td>
-                        <td>Valentin</td>
-                        <td>07/09/2015</td>
-                        <td>Mathématiques</td>
-                        <td>14/20</td>
-                    </tr>
-                    <tr>
-                        <td class="bs-checkbox "><input data-index="9" name="btSelectItem" type="checkbox"></td>
-                        <td>Valérie</td>
-                        <td>01/10/2015</td>
-                        <td>Philosophie</td>
-                        <td>12/20</td>
-                    </tr>
-                    <tr>
-                        <td class="bs-checkbox "><input data-index="10" name="btSelectItem" type="checkbox"></td>
-                        <td>Eric</td>
-                        <td>07/09/2015</td>
-                        <td>Mathématiques</td>
-                        <td>14/20</td>
-                    </tr>
-                    <tr>
-                        <td class="bs-checkbox "><input data-index="11" name="btSelectItem" type="checkbox"></td>
-                        <td>Valentin</td>
-                        <td>01/10/2015</td>
-                        <td>Philosophie</td>
-                        <td>10/20</td>
-                    </tr>
+                    <% }); %>
+
                     </tbody>
                 </table>
             </div>
@@ -151,8 +76,16 @@
             <script  src="../buttons/js/index.js"></script>
             <script>
             function TableActions (value, row, index) {
+                x=value;
+                console.log(value);
+                console.log(row);
+                console.log(index);
+                quer=window.location.search;
+                if(quer) {
+                    quer[0] = 'a';
+                }
             return [
-            '<a href="#" class="batn red">Delete</a>'
+                '<div id="buttons">'+'<a href=/delet?id='+row._id+'&back='+quer+' class="batn red">Delete</a>'+'<a href="#" class="batn yellow">Edit post</a>'+'</div>'
             ].join('');
             }
             </script>

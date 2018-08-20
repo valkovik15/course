@@ -39,7 +39,6 @@ h1 {
 
 /* button div */
 #buttons {
-  padding-top: 50px;
   text-align: center;
 }
 
@@ -48,7 +47,7 @@ h1 {
   border-radius: 5px;
   padding: 5px 10px;
   text-decoration: none;
-  margin: 20px;
+  margin: 5px;
   color: #fff;
   position: relative;
   display: inline-block;

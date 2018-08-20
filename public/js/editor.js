@@ -4,11 +4,15 @@ app.controller("markdownEditorController", ["$scope", function ($scope) {
 
     $scope.editor = {
     	src: '',
-    	parsed: ''
+    	parsed: 'Input the text to see how it will render!'
     };
+
 
     $scope.textChange = function() {
     	$scope.editor.parsed = marked($scope.editor.src);
+    };
+    $scope.textInit = function() {
+        $scope.editor.parsed = marked($scope.editor.src);
     };
 
     $scope.onPublish = function() {
