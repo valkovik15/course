@@ -2,8 +2,8 @@ var App=angular
   .module('MyApp', ['ngMaterial', 'ngMessages', 'material.svgAssetsCache','ngSanitize'])
     .config(function($mdThemingProvider) {
         $mdThemingProvider.theme('default')
-            .primaryPalette('pink')
-            .accentPalette('orange');
+            .primaryPalette('lime')
+            .accentPalette('teal');
     })
   .controller('AppCtrl', function ($scope, $timeout, $mdSidenav, $http, $location,$log) {
       $scope.index=0;

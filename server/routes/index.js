@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 });
 router.get('/new', isLoggedIn, function(req, res, next) {
 
-    res.render('new', { title: 'New article' });
+    res.render('new', { title: 'New article' , body:"", topic:"", tags:"", pic:""});
 });
 
 /* GET login page. */

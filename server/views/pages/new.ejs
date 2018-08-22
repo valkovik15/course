@@ -7,9 +7,15 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='style/font.css' rel='stylesheet'>
     <link href='style/editor.css' rel='stylesheet'>
+    <link rel='stylesheet' href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.10/angular-material.css'>
+    <link rel='stylesheet' href='https://material.angularjs.org/1.1.10/docs.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/cloud/css/style.css">
+    <link rel="stylesheet" href="/tags/ng-tags-input.css">
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.js'></script>
     <% include ../partials/stylesheet %>
 </head>
-<body ng-app="markdownEditor" ng-controller="markdownEditorController" ng-init="editor.src='<%= body %>'; editor.title='<%= title %>'">
+<body ng-app="markdownEditor" ng-controller="markdownEditorController" ng-init="editor.src='<%= body %>'; editor.title='<%= title %>';topic='<%= topic%>'; pic='<%= pic%>'; tagspre='<%=tags %>';postid='<%= id %>' " id="wrap">
 <% include ../partials/header %>
 <div class="toolbox">
     <button class="icon toolbar fa fa-bold" ng-click="onEditor('bold')"></button>
@@ -27,21 +33,70 @@
 </div>
 <div class="left">
     <input id="post-title" type="text" ng-model="editor.title" placeholder="Insert title here..."/>
+    Topic:
+    <select ng-model="topic">
+        <option value="Ubuntu">Ubuntu</option>
+        <option value="Else">Else</option>
+        <option value="None" selected>None</option>
+    </select>
+    <input id="post-description" type="text" ng-model="editor.description" placeholder="Insert description here..."/>
+    <div id="dropbox">
+        <h1>Upload your post pic</h1>
+
+        <form class="my-form">
+            <div class="form_line">
+                <div class="form_controls">
+                    <div class="upload_button_holder">
+                        <input type="file" id="fileElem" multiple accept="image/*" style="display:none" onchange="handleFiles(this.files)">
+                        <a href="#" id="fileSelect">Select a file</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="progress-bar" id="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <div id="gallery">
+            <img src="{{pic}}">
+    </div>
+</div>
+
+
+<tags-input ng-model="tags" add-on-paste="true">
+    <auto-complete source="loadTags($query)" min-length="1" ></auto-complete>
+</tags-input>
+
+<script  src="js/index.js"></script>
     <textarea id="mark-editor" ng-change="textChange()" ng-model="editor.src" placeholder="Just typing here..."></textarea>
 </div>
 <div class="right">
     <div id="parsed-title">{{editor.title}}</div>
+    <div id="parsed-description">{{editor.description}}</div>
+
     <div id="parsed-content" ng-bind-html="editor.parsed"></div>
 </div>
+
 <button class="icon action fa fa-paper-plane" ng-click="onPublish()"></button>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-sanitize.js"></script>
+<script type="text/javascript" src="/tags/ng-tags-input.js"></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-animate.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-route.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-aria.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-messages.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.js'></script>
+<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js'></script>
+<script src='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.10/angular-material.js'></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
 <script src="js/marked.js"></script>
-<script src="js/editor.js"></script>
 <script src="js/editor.js"></script>
 <% include ../partials/header %>
 <% include ../partials/footer %>
 <% include ../partials/javascript %>
+<script>
+$(document).ready(function() {
+$.getScript("/cloud/js/index1.js");
+});
+</script>
 </body>
 </html>

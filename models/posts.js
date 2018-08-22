@@ -3,7 +3,10 @@
 module.exports = (sequelize, DataTypes) => {
   var Posts = sequelize.define('Posts', {
     title: DataTypes.STRING,
-    body: DataTypes.TEXT
+    body: DataTypes.TEXT,
+      description: DataTypes.STRING,
+      topic: DataTypes.STRING,
+      pic: DataTypes.STRING
   }, {charset: 'utf8',
       collate: 'utf8_general_ci'});
     Posts.associate = function(models) {

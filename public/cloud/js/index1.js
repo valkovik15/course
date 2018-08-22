@@ -1,8 +1,7 @@
 var cloudName = 'dsqk4tp0a';
 var unsignedUploadPreset = 'gwkfys8c';
 var scope = angular.element(document.getElementById("wrap")).scope();
-
-scope.temp=[];
+console.log(angular.element(document.getElementById("wrap")));
 var fileSelect = document.getElementById("fileSelect"),
   fileElem = document.getElementById("fileElem");
 
@@ -65,8 +64,9 @@ function uploadFile(file) {
       var response = JSON.parse(xhr.responseText);
       // https://res.cloudinary.com/cloudName/image/upload/v1483481128/public_id.jpg
       var url = response.secure_url;
-      scope.temp.push(url);
-      console.log(scope.temp);
+      scope.pic=url;
+      console.log(scope.pic);
+      console.log(scope);
 
 
       // Create a thumbnail of the uploaded image, with 150px width
@@ -75,7 +75,7 @@ function uploadFile(file) {
       var img = new Image(); // HTML5 Constructor
       img.src = tokens.join('/');
       img.alt = response.public_id;
-      document.getElementById('gallery').appendChild(img);
+      document.getElementById('gallery').replaceChild(img, document.getElementById('gallery').firstChild);
     }
   };
 
@@ -83,7 +83,6 @@ function uploadFile(file) {
   fd.append('tags', 'browser_upload'); // Optional - add tag for image admin in Cloudinary
   fd.append('file', file);
   xhr.send(fd);
-  console.log(angular.element(document.getElementById("wrap")).scope());
 }
 
 var handleFiles = function(files) {

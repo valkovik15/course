@@ -1,13 +1,28 @@
-var app = angular.module("markdownEditor", ['ngSanitize']);
-app.controller("markdownEditorController", ["$scope", function ($scope) {
+var app = angular.module("markdownEditor", ['ngMaterial', 'ngMessages', 'material.svgAssetsCache','ngSanitize','ngTagsInput']);
+app.controller("markdownEditorController", ["$scope",  "$http","$mdDialog",function ($scope, $http, $mdDialog) {
     document.getElementById("post-title").focus();
 
+    $scope.tags = [
+    ];
     $scope.editor = {
     	src: '',
-    	parsed: 'Input the text to see how it will render!'
+    	parsed: 'Input the text to see how it will render!',
     };
+    $scope.$watch('postid', function () {
+        $http.get("/gettags/?id="+$scope.postid)
+            .then(function(response) {
+                $scope.tags=response.data;
+            });
+    });
+    $scope.loadTags = function(query) {
 
-
+        return $http.get('query', { cache: true}).then(function(response) {
+            var tags = response.data;
+            return tags.filter(function(item) {
+                return item.text.toLowerCase().indexOf(query.toLowerCase()) != -1;
+            });
+        });
+    };
     $scope.textChange = function() {
     	$scope.editor.parsed = marked($scope.editor.src);
     };
@@ -16,13 +31,22 @@ app.controller("markdownEditorController", ["$scope", function ($scope) {
     };
 
     $scope.onPublish = function() {
-
+	console.log(scope.tags);
+	alert("");
         var data = $.param({
             text:$scope.editor.src,
-            title:$scope.editor.title
+            title:$scope.editor.title,
+            description:$scope.editor.description,
+			picture:$scope.pic,
+			tags:$scope.tags,
+			topic:$scope.topic
                             });
         if(window.location.search)
         window.location.href="http://localhost:3000/publish/?"+data+'&'+window.location.search.slice(1);
+        else
+		{
+            window.location.href="http://localhost:3000/publish/?"+data;
+		}
 
     };
 
@@ -69,27 +93,21 @@ app.controller("markdownEditorController", ["$scope", function ($scope) {
 				$scope.insertPlacehodler("# Header", 2, 0);
     			break;
     		case "url":
-
+                $scope.showAdvanced();
     			var iUrl = prompt("Enter URL here:");
     			if (iUrl == "") {
     				iUrl = "http://google.com";
     			}
     			sel.target.value += "\n";
-    			// insert new
+    			// insert newe
     			var aUrl = "[text](" + iUrl + ")";
     			$scope.insertPlacehodler(aUrl, 1, iUrl.length + 3 );
 
     			break;
     		case "img":
 
-    			var iUrl = prompt("Enter image URL here:");
-    			if (iUrl == "") {
-    				iUrl = "http://google.com";
-    			}
-    			sel.target.value += "\n";
-    			// insert new
-    			var aUrl = "![image text](" + iUrl + ")";
-    			$scope.insertPlacehodler(aUrl, 2, iUrl.length + 3 );
+    			$scope.showAdvanced();
+
 
     			break;
     		case "code":
@@ -152,7 +170,44 @@ app.controller("markdownEditorController", ["$scope", function ($scope) {
     	ta.value += text;
     	ta.selectionStart = ta.textLength - text.length + padLeft;
     	ta.selectionEnd = ta.textLength - padRight;
+    	console.log(ta);
 
+    };
+    $scope.showAdvanced = function() {
+        $mdDialog.show ({
+            clickOutsideToClose: true,
+            scope: $scope,
+            preserveScope: true,
+            templateUrl: 'template.html',
+            controller: function DialogController($scope, $mdDialog) {
+                $scope.closeDialog = function() {
+                    $mdDialog.hide();
+                };
+                $scope.cancel = function() {
+                    $mdDialog.hide();
+                };
+                $scope.answer = function(action) {
+                    $mdDialog.hide();
+                    if(action=='ok')
+                    {
+                        $scope.temp.forEach(function(element)
+                        {
+                            iUrl=element;
+                            var aUrl = "![image text](" + iUrl + ")";
+                            $scope.insertPlacehodler(aUrl, 2, iUrl.length + 3 );
+                            alert(aUrl);
+                        });
+                    }
+                    else
+                    {
+                        console.log('Cancel!');
+                    }
+                }
+            }
+
+        }).then(function(answer) {
+
+        });
     };
 
     $scope.insertText = function(text, start, end) {

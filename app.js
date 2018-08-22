@@ -141,8 +141,18 @@ app.get('/edit', isLoggedIn, function(req, res, next) {
     models.Posts.findOne({where: {id:req.query.id}})
         .then(function(post) {
             if((post.userId==req.user.id)||(req.user.role='admin'))
+            {post.getTags().then(function(tags)
             {
-                res.render('new', { title: post.title, body:post.body, title:post.title});
+                tags.forEach(function (item, i, arr) {
+                        arr[i]={'text':item.name};
+                    }
+
+                );
+                console.log(tags);
+                res.render('new', { title: post.title, body:post.body, topic: post.topic, pic:post.pic, tags:tags, id:post.id});
+            }
+            );
+
             }
             else
             {
@@ -176,6 +186,21 @@ app.get( '/com', function( req, res ) {
             );
             console.log(data);
             res.send(data);
+        });
+});
+app.get('/gettags', function( req, res )
+{
+    models.Posts.findOne({where: {id:req.query.id}})
+        .then(function(post) {
+                post.getTags().then(function(tags)
+                {
+                    tags.forEach(function (item, i, arr) {
+                            arr[i]={'text':item.name};
+                        }
+                    );
+                    res.setHeader('Content-Type', 'application/json');
+                    res.send(JSON.stringify(tags));} );
+
         });
 });
 app.get( '/like', function( req, res ) {
@@ -233,7 +258,21 @@ app.get('/admin', function(req, res)
         });
 
 });
+app.get('/query', function(req, res)
+{
+    models.Tags.findAll({})
+        .then(function(tags) {
+            data = [];
+            tags.forEach(
+                function (item, i, arr) {
+                    data.push({'text': item.name})
 
+                }
+            );
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify(data));} );
+
+});
 app.get('/comments', function(req, res)
 {
     var targ;
@@ -248,9 +287,7 @@ app.get('/comments', function(req, res)
                 item.avg=avg;
                 console.log(item.avg);
                 item.pic=item.user.pic||gravatar.url(item.user.email ,  {s: '80', r: 'x', d: 'retro'}, true);
-                item.body=item.body.split(' ').slice(0, 50).join(" ");
-                item.body=markdown.toHTML( item.body );
-                item.body=marked(item.body);
+
 
             }
         );
@@ -383,31 +420,73 @@ if(x)
 });
 app.get('/publish', function(req, res)
 {
-    if(req.isAuthenticated()) {
-        console.log(req.query);
-        console.log(models);
-        var Posts = models.Posts;
-        models.Posts.findOne({
-            where: {
-                id: req.query.id
-            }
-        }).then(function (post) {
-            if (post) {
-                post.updateAttributes({body: req.query.text, title:req.query.title});
-            } else {
-                var data_ =
-                    {
-                        title: req.query.title,
-                        body: req.query.text,
-                        userId: req.user.id
-                    };
-                Posts.create(data_).then(function (newPost, created) {
 
-                });
-            }
-        });
-        res.redirect('/profile');
-    }
+    console.log(req.query);
+    tags=req.query.tags;
+
+     if(req.isAuthenticated()) {
+         console.log(req.query);
+         console.log(models);
+         var Posts = models.Posts;
+         models.Posts.findOne({
+             where: {
+                 id: req.query.id
+             }
+         }).then(function (post) {
+             if (post) {
+                 post.updateAttributes({
+                     body: req.query.text,
+                     title: req.query.title,
+                     description: req.query.description,
+                     pic: req.query.picture,
+                     topic: req.query.topic
+                 }).then(function (post, created) {
+                     post.setTags([]).then(function (none) {
+                         newt = [];
+                         if(tags) {
+                             tags.forEach(
+                                 function (item, i, arr) {
+                                     models.Tags.findOrCreate({where: {name: item.text}})
+                                         .spread((tag, created) => {
+                                             post.addTags([tag]);
+                                         });
+
+                                 });
+                         }
+                     });
+
+                 });
+             } else {
+                 var data_ =
+                     {
+                         title: req.query.title,
+                         body: req.query.text,
+                         userId: req.user.id,
+                         description: req.query.description,
+                         pic: req.query.picture,
+                         topic: req.query.topic
+                     };
+                 Posts.create(data_).then(function (post, created) {
+                     post.setTags([]).then(function (none) {
+                         newt = [];
+                         tags.forEach(
+                             function (item, i, arr) {
+                                 models.Tags.findOrCreate({where: {name: item.text}})
+                                     .spread((tag, created) => {
+                                         post.addTags([tag]);
+                                     });
+
+                             });
+
+
+                     })
+                 });
+
+             }
+             ;
+             res.redirect('/profile');
+         });
+     }
     else
     {
         res.redirect('/login');
