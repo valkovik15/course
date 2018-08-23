@@ -74,6 +74,7 @@ app.use(require('node-sass-middleware')({
 }));
 // Setup public directory
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/scripts', express.static(__dirname + '/node_modules/'));
 
 // required for passport
 // secret for session
@@ -278,16 +279,15 @@ app.get('/comments', function(req, res)
     var targ;
     var Posts = models.Posts;
     var User=models.user;
-    Posts.findAll({include:[{model:User},{model:models.Grades}]})
+    Posts.findAll({include:[{model:User},{model:models.Grades},{model:models.Tags}]})
         .then(function(posts)
     {
         posts.forEach(
             function(item, i, arr) {
                 avg=count_avg(item.Grades);
                 item.avg=avg;
-                console.log(item.avg);
-                item.pic=item.user.pic||gravatar.url(item.user.email ,  {s: '80', r: 'x', d: 'retro'}, true);
-
+                item.avatar=item.user.pic||gravatar.url(item.user.email ,  {s: '80', r: 'x', d: 'retro'}, true);
+                console.log(item.Tags);
 
             }
         );

@@ -24,6 +24,7 @@
     "@admin-interface/core": "^0.1.30",
     "@admin-interface/express": "^0.1.32",
     "angular": "^1.7.3",
+    "angular-d3-word-cloud": "^0.5.3",
     "angular-highlightjs": "^0.6.1",
     "angular-markdown-editor": "^1.1.5",
     "angular-marked": "^1.2.2",
