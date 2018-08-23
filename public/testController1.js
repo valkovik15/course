@@ -1,8 +1,7 @@
-angular.module('test', ['tangcloud'])
+angular.module('app', ['tangcloud'])
     .controller('TestCtrl', ['$scope', '$timeout', '$http',function ($scope, $timeout,$http) {
         $http.get("/cl").then(function(response) {
                 $scope.words=response.data;
-                console.log(response.data);
             });
         $timeout(function(){
             alert("y");

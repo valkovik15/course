@@ -11,6 +11,8 @@ app.controller("markdownEditorController", ["$scope",  "$http","$mdDialog",funct
     $scope.$watch('postid', function () {
         $http.get("/gettags/?id="+$scope.postid)
             .then(function(response) {
+            	console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            	console.log(response.data);
                 $scope.tags=response.data;
             });
     });

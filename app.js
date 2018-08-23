@@ -266,13 +266,38 @@ app.get('/query', function(req, res)
             data = [];
             tags.forEach(
                 function (item, i, arr) {
-                    data.push({'text': item.name})
+                    item.get
 
                 }
             );
             res.setHeader('Content-Type', 'application/json');
             res.send(JSON.stringify(data));} );
 
+});
+app.get('/cl', function(req, res) {
+
+    models.Tags.findAll({})
+        .then(function (tags) {
+            data = [];
+            sum = 0;
+            tags.forEach(
+                function (item, i, arr) {
+                    item.getPosts().then(function (posts) {
+                        sum += posts.length;
+                        data.push({'size': Math.min(posts.length, 10), 'word': item.name});
+                        console.log(data);
+                        if(data.length==tags.length)
+                        {
+                            res.setHeader('Content-Type', 'application/json');
+                            res.send(JSON.stringify(data));
+                        }
+                    });
+
+                }
+            );
+
+
+        });
 });
 app.get('/comments', function(req, res)
 {

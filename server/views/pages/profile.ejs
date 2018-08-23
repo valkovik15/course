@@ -1,19 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html >
 <head>
     <title><%= title %></title>
     <% include ../partials/stylesheet %>
     <link rel="stylesheet" href="../profile/css/style.css">
 
     <link rel="stylesheet" href="../buttons/css/style.css">
+    <!-- Bootstrap 3 css -->
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Angular.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-sanitize.min.js"></script>
+    <!-- Angular-xeditable -->
+    <link href="../angular-xeditable/css/xeditable.css" rel="stylesheet">
+    <script src="../angular-xeditable/js/xeditable.js"></script>
+    <!-- app.js -->
+    <link rel="stylesheet" type="text/css" href="../style/app.css"/>
+    <script src="../cloudtags/tangCloud.js"></script>
+    <script src="../angular-xeditable/app.js"></script>
     <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css'>
     <link rel='stylesheet' href='http://rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css'>
 
 </head>
-<body>
+<body ng-app="app" ng-controller="Ctrl">
     <% include ../partials/header %>
 
     <div class="container">
+
         <h1><%= title %></h1>
         <div class="datails">
 
@@ -24,8 +37,15 @@
                 <div class="card-block">
                     <h4 class="card-title">User Details</h4>
                     <p class="card-text">
-                        <strong>Name</strong>: <%= user.name %><br>
-                        <strong>Email</strong>: <%= user.email %>
+                    <div  ng-init="nam='<%= user.name%>'; email='<%= user.email%>'">
+                        <!-- editable element -->
+                        <div id="debug" style="margin-top: 30px">
+                            <strong>Name</strong>: <a href="#" editable-text="nam">{{nam|| "empty" }}</a><br>
+                            <strong>Email</strong>:  <a href="#" editable-text="email">{{email|| "empty" }}</a>
+                        </div>
+                    </div>
+
+
                     </p>
                     <a href="/logout" class="btn btn-default">Logout</a>
                 </div>
@@ -64,7 +84,9 @@
 
                     </tbody>
                 </table>
+
             </div>
+
             <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
             <script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
             <script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.js'></script>
@@ -88,10 +110,14 @@
                 '<div id="buttons">'+'<a href=/delet?id='+row._id+'&back='+quer+' class="batn red">Delete</a>'+'<a href=/edit?id='+row._id+' class="batn yellow">Edit post</a>'+'</div>'
             ].join('');
             }
+
             </script>
+
         </div>
     </div>
-        <% include ../partials/footer %>
+    <div class="cloud">
+        <tang-cloud words="words" on-click="test(word)" width="900" height="900" ></tang-cloud>
+    </div>
         <% include ../partials/javascript %>
     </body>
     </html>

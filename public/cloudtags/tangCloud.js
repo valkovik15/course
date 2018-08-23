@@ -17,7 +17,7 @@ angular.module('tangcloud', [])
                     text = '<a data-ng-href="{{entry.href}}">' + text + '</a>';
                 }
                 return '<div class="tangcloud">' +
-                    '<span ng-repeat="entry in words" ' + clickAttr + '>' + text + '</span>' +
+                    '<span ng-repeat="entry in words track by $index" ' + clickAttr + '>' + text + '</span>' +
                     '</div>';
             },
 
@@ -36,7 +36,7 @@ angular.module('tangcloud', [])
                             scope.width = div.offsetWidth;
                             scope.height = div.offsetHeight;
                             console.log(scope);
-                            scope.height=400;
+                            scope.height=100;
 
                             scope.centerX = scope.width / 2;
                             scope.centerY = scope.height / 2;
