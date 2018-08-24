@@ -9,17 +9,20 @@ app.controller("markdownEditorController", ["$scope",  "$http","$mdDialog",funct
     	parsed: 'Input the text to see how it will render!',
     };
     $scope.$watch('postid', function () {
-        $http.get("/gettags/?id="+$scope.postid)
-            .then(function(response) {
-            	console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            	console.log(response.data);
-                $scope.tags=response.data;
-            });
+    	if($scope.postid) {
+            $http.get("/gettags/?id=" + $scope.postid)
+                .then(function (response) {
+                    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                    console.log(response.data);
+                    $scope.tags = response.data;
+                });
+        }
     });
     $scope.loadTags = function(query) {
 
         return $http.get('query', { cache: true}).then(function(response) {
             var tags = response.data;
+            console.log(tags);
             return tags.filter(function(item) {
                 return item.text.toLowerCase().indexOf(query.toLowerCase()) != -1;
             });

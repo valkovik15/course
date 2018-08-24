@@ -13,6 +13,7 @@ var users = require('./server/routes/users');
 var session    = require('express-session');
 // Import Passport and Warning flash modules
 var passport = require('passport');
+var sequelize = require('sequelize');
 var flash = require('connect-flash');
 var env = require('dotenv').load()
 var MySQLStore = require('express-mysql-session')(session);
@@ -266,13 +267,119 @@ app.get('/query', function(req, res)
             data = [];
             tags.forEach(
                 function (item, i, arr) {
-                    item.get
+                    data.push({text:item.name});
 
                 }
             );
+            console.log("DATA"+data);
             res.setHeader('Content-Type', 'application/json');
             res.send(JSON.stringify(data));} );
 
+});
+
+function search_comments(q) {
+    models.Comments.findAll({
+        where: sequelize.literal('MATCH (text) AGAINST (:q)'),
+        replacements: {
+            q: q
+        }
+        , include: [{model: models.Posts}]
+    }).then
+    (function (comments) {
+        temp = [];
+        comments.forEach(function (item1, i1, arr1) {
+            temp.push({ 'url': ('article?id=' + item1.Post.id),
+                'title': item1.Post.title,
+                'description': item1.Post.description
+            });
+            if(temp.length==arr1.length)
+            {
+               return new Promise(function (resolve, reject)
+                {
+                   resolve(temp);
+                });
+
+            }
+
+        });
+    });
+}
+
+app.get('/search',function(req, res) {
+    let promise1=promise2 = new Promise(function(resolve, reject) {
+        setTimeout(resolve, 100, 'foo');
+    });
+    data=[];
+    temp=[];
+    models.Posts.findAll({
+        where: sequelize.literal('MATCH (body, title) AGAINST (:q)'),
+        replacements: {
+            q: req.query.q
+        }
+    }).then(function (items) {
+        results = [];
+        items.forEach(function (item, i, arr) {
+            results.push({'url': ('article?id=' + item.id), 'title': item.title, 'description': item.description});
+            if (results.length == arr.length) {
+                promise1=Promise.resolve(data);
+
+            }
+        });
+        models.Comments.findAll({
+            where: sequelize.literal('MATCH (text) AGAINST (:q)'),
+            replacements: {
+                q: req.query.q
+            }
+            , include: [{model: models.Posts}]
+        }).then
+        (function (comments) {
+            temp = [];
+            comments.forEach(function (item1, i1, arr1) {
+                temp.push({
+                    'url': ('article?id=' + item1.Post.id),
+                    'title': item1.Post.title,
+                    'description': item1.Post.description
+                });
+                if (temp.length == arr1.length) {
+                    console.log(temp);
+                    promise2=Promise.resolve(temp);
+                }
+            });
+        });
+    });
+    Promise.all([promise1, promise2]).then(function(values) {
+        results=results.concat(temp);
+        unique=[];
+        ids=[];
+        results.forEach(
+            function(item,i,arr)
+            {
+               if(ids.indexOf(item.url)==-1)
+               {
+                   unique.push(item);
+                   ids.push(item.url);
+               }
+               if(i==arr.length-1)
+               {
+                   data = {'results': unique};
+                   res.send(JSON.stringify(data));
+               }
+            }
+        );
+
+    });
+
+});
+
+app.post('/updateUser', function(req,res)
+{
+    console.log(req.body);
+    models.user.findOne({where: {id:id}})
+        .then(function(user) {
+            user.updateAttributes({name:req.body.name, email:req.body.email});
+        });
+    res.status(200);
+    res.send("");
 });
 app.get('/cl', function(req, res) {
 
@@ -321,7 +428,7 @@ app.get('/comments', function(req, res)
 
             title: 'Articles Page',
             comments: posts,
-            avg:avg
+
         });
     })
         .catch((err) => {

@@ -5,8 +5,6 @@ angular.module('test', ['tangcloud'])
                 console.log(response.data);
             });
         $timeout(function(){
-            alert("y");
-
 
         }, 1000);
 

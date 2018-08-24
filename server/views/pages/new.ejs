@@ -57,7 +57,7 @@
             <div class="progress" id="progress"></div>
         </div>
         <div id="gallery">
-            <img src="{{pic}}">
+            <img src="{{pic}}" ng-show="{{pic}}">
     </div>
 </div>
 
@@ -91,7 +91,7 @@
 <script src="js/marked.js"></script>
 <script src="js/editor.js"></script>
 <% include ../partials/header %>
-<% include ../partials/footer %>
+
 <% include ../partials/javascript %>
 <script>
 $(document).ready(function() {

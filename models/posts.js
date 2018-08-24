@@ -8,7 +8,10 @@ module.exports = (sequelize, DataTypes) => {
       topic: DataTypes.STRING,
       pic: DataTypes.STRING
   }, {charset: 'utf8',
-      collate: 'utf8_general_ci'});
+      collate: 'utf8_general_ci',indexes: [
+          // add a FULLTEXT index
+          { type: 'FULLTEXT', name: 'post_idx', fields: ['title', 'body'] }
+      ]});
     Posts.associate = function(models) {
         Posts.belongsToMany(models.Tags,{
         through: 'PostsTags',

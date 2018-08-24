@@ -13,7 +13,6 @@ app.controller('Ctrl', function($scope, $timeout,$http) {
         console.log(response.data);
     });
     $timeout(function(){
-        alert("y");
 
 
     }, 1000);
@@ -21,4 +20,8 @@ app.controller('Ctrl', function($scope, $timeout,$http) {
     $scope.test = function(word) {
         alert("clicked on " + word);
     }
+    $scope.updateUser = function() {
+        return $http.post('/updateUser', {id: $scope.iden, name: $scope.nam, email:$scope.email});
+    };
+
 });

@@ -37,11 +37,11 @@
                 <div class="card-block">
                     <h4 class="card-title">User Details</h4>
                     <p class="card-text">
-                    <div  ng-init="nam='<%= user.name%>'; email='<%= user.email%>'">
+                    <div  ng-init="nam='<%= user.name%>'; email='<%= user.email%>'; iden='<%= user.id%>'">
                         <!-- editable element -->
                         <div id="debug" style="margin-top: 30px">
-                            <strong>Name</strong>: <a href="#" editable-text="nam">{{nam|| "empty" }}</a><br>
-                            <strong>Email</strong>:  <a href="#" editable-text="email">{{email|| "empty" }}</a>
+                            <strong>Name</strong>: <a href="#" editable-text="nam" onaftersave="updateUser()">{{nam|| "empty" }}</a><br>
+                            <strong>Email</strong>:  <a href="#" editable-text="email" onaftersave="updateUser()">{{email|| "empty" }}</a>
                         </div>
                     </div>
 

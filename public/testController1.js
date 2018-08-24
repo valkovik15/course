@@ -4,7 +4,6 @@ angular.module('app', ['tangcloud'])
                 $scope.words=response.data;
             });
         $timeout(function(){
-            alert("y");
 
 
         }, 1000);

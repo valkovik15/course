@@ -3,7 +3,7 @@
         src="https://code.jquery.com/jquery-3.1.1.min.js"
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
         crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="../dist/semantic.min.js"></script>
 <div class ui sticky>
 <div class="ui stackable menu">
     <div class="header item" >
@@ -43,5 +43,31 @@
   js = d.createElement(s); js.id = id;
   js.src = 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v3.1&appId=210456179651489&autoLogAppEvents=1';
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+}(document, 'script', 'facebook-jssdk'));
+    var categoryContent = [
+        { category: 'Africa', title: 'Nigeria', url:'google.com'},
+        { category: 'South America', title: 'Brazil' },
+        { category: 'South America', title: 'Peru' },
+        { category: 'North America', title: 'Canada' },
+        { category: 'Asia', title: 'South Korea' },
+        { category: 'Asia', title: 'Japan' },
+        { category: 'Asia', title: 'China' },
+        { category: 'Europe', title: 'Denmark' },
+        { category: 'Europe', title: 'England' },
+        { category: 'Europe', title: 'France' },
+        { category: 'Europe', title: 'Germany' },
+        { category: 'Africa', title: 'Ethiopia' },
+        { category: 'Africa', title: 'Zimbabwe' },
+    ];
+    $('.ui.search')
+        .search({
+
+            apiSettings: {
+                url: '/search?q={query}'
+            },
+            type: 'standard'
+        })
+    ;
+
+    ;</script>
 
