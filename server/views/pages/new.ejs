@@ -41,6 +41,7 @@
 <body ng-app="markdownEditor" ng-controller="markdownEditorController" ng-init="editor.src='<%= body %>'; editor.title='<%= title %>';topic='<%= topic%>'; pic='<%= pic%>'; tagspre='<%=tags %>';postid='<%= id %>' " id="wrap">
 <% include ../partials/header %>
 <div class="toolbox">
+    <button class="icon act fa fa-plus-circle" ng-click="onEditor('step')"></button>
     <button class="icon toolbar fa fa-bold" ng-click="onEditor('bold')"></button>
     <button class="icon toolbar fa fa-italic" ng-click="onEditor('italic')"></button>
     <button class="icon toolbar fa fa-underline" ng-click="onEditor('underline')"></button>

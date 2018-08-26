@@ -9,6 +9,8 @@ angular.module('test', ['tangcloud'])
         }, 1000);
 
         $scope.test = function(word) {
-            alert("clicked on " + word);
-        }
+            $scope.test = function(word) {
+                alert("Wanna search"+word);
+            };
+        };
     }]);

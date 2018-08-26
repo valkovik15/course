@@ -26,3 +26,5 @@
 <select "Select a file">
 <just placeholder:"Just type here">
 <change "Русская версия">
+<best "Top-5 best posts">
+<latest "Latest posts">

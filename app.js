@@ -252,26 +252,45 @@ app.get('/admin', function(req, res)
 {
     checklocale(req);
     var User=models.user;
-    User.findAll({})
-        .then(function(users)
+    if(req.user) {
+        if(req.user.role=='admin') {
+            User.findAll({})
+                .then(function (users) {
+                    var data = [];
+                    users.forEach(
+                        function (item, i, arr) {
+                            data.push({
+                                name: item.name,
+                                email: item.email,
+                                role: item.role,
+                                picture: item.pic || gravatar.url(item.email, {s: '80', r: 'x', d: 'retro'}, true),
+                                status: item.isActive,
+                                id: item.id
+                            })
+
+                        }
+                    );
+
+                    res.render('admin', {
+                        locale: req.session.locale,
+                        users: data
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
+                    res.redirect('/profile');
+                });
+        }
+        else
         {
-            var data=[];
-            users.forEach(
-                function(item, i, arr) {
-                    data.push({name:item.name, email:item.email, role:item.role, picture:item.pic||gravatar.url(item.email ,  {s: '80', r: 'x', d: 'retro'}, true), status:item.isActive, id:item.id})
-
-                }
-            );
-
-            res.render('admin', {
-                locale:req.session.locale,
-                users:data
-            });
-        })
-        .catch((err) => {
-            console.log(err);
             res.redirect('/profile');
-        });
+        }
+
+    }
+    else
+    {
+        res.redirect('/profile');
+    }
 
 });
 app.get('/query', function(req, res)
@@ -367,6 +386,46 @@ app.post('/updateUser', function(req,res)
     res.status(200);
     res.send("");
 });
+app.get('/searchtag', function(req,res)
+{
+    models.Tags.findOne({where: {name:req.query.word}})
+        .then(function(item) {
+            item.getPosts().then(function(posts)
+            {
+                temp=[];
+                posts.forEach(
+                    function(item, i, arr) {
+                        item.getGrades().then(function(grades)
+                        {
+                            avg=count_avg(grades);
+                            item.avg=avg;
+
+                            models.user.findOne({where:{id:item.userId}}).then(function(user)
+                            {
+                                item.user=user;
+                                item.avatar=item.user.pic||gravatar.url(item.user.email ,  {s: '80', r: 'x', d: 'retro'}, true);
+                                temp.push(item);
+                                if(temp.length==arr.length)
+                                {
+                                    temp.reverse();
+                                    console.log(temp);
+                                    res.render('searchtags', {
+                                        title: req.query.word,
+                                        comments: temp,
+                                        locale:req.session.locale,
+
+                                    });
+                                }
+                            })
+                        });
+
+
+                    }
+                );
+
+            })
+            })
+        });
 app.get('/cl', function(req, res) {
 
     models.Tags.findAll({})
@@ -395,30 +454,43 @@ app.get('/cl', function(req, res) {
 app.get('/comments', function(req, res)
 {
     checklocale(req);
-    var targ;
-    var Posts = models.Posts;
     var User=models.user;
+    var Posts = models.Posts;
     Posts.findAll({include:[{model:User},{model:models.Grades},{model:models.Tags}]})
         .then(function(posts)
-    {
-        posts.forEach(
-            function(item, i, arr) {
-                avg=count_avg(item.Grades);
-                item.avg=avg;
-                item.avatar=item.user.pic||gravatar.url(item.user.email ,  {s: '80', r: 'x', d: 'retro'}, true);
-                console.log(item.Tags);
+        {
+            console.log("POSTS");
+            console.log(posts);
+            posts.forEach(
+                function(item, i, arr) {
+                    avg=count_avg(item.Grades);
+                    item.avg=avg;
+                    item.avatar=item.user.pic||gravatar.url(item.user.email ,  {s: '80', r: 'x', d: 'retro'}, true);
+                    console.log(item.Tags);
 
+                }
+            );
+            posts.reverse();
+            latest=posts.slice();
+
+            posts.sort(function(obj1, obj2) {
+                return obj2.avg-obj1.avg;
+            });
+            console.log(posts);
+            console.log(latest);
+            if(posts.length>5)
+            {
+                posts.splice(5);
             }
-        );
+            res.render('comments', {
 
-        res.render('comments', {
+                title: 'Articles Page',
+                comments: posts,
+                locale:req.session.locale,
+                latest: latest
 
-            title: 'Articles Page',
-            comments: posts,
-            locale:req.session.locale
-
-        });
-    })
+            });
+        })
         .catch((err) => {
             console.log(err);
             res.redirect('/profile');
@@ -473,8 +545,16 @@ app.get('/ban', function(req, res)
     models.user.findOne({where: {id:id}})
         .then(function(user) {
                     user.updateAttributes({isActive:!user.isActive});
+                    if(req.user.email==user.email)
+                    {
+                        return res.redirect('/logout');
+                    }
+                    else
+                    {
+                        return res.redirect('/admin');
+                    }
         });
-    return res.redirect('/admin');
+
 });
 app.get('/set', function(req, res)
 {
@@ -499,11 +579,20 @@ app.get('/del', function(req, res)
         }
     }).then(function (item) {
             console.log('Deleted successfully');
+            console.log(item);
+            if(req.user.id==req.query.id)
+            {
+                return res.redirect('/logout')
+            }
+            else
+            {
+                return res.redirect('/admin');
+            }
         }
         , function (err) {
             console.log(err);
         });
-    return res.redirect('/admin');
+
 });
 app.get('/delet', function(req, res)
 {

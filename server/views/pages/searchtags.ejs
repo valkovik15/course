@@ -43,7 +43,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <h4 class="text-muted" data-l10n-id="best"></h4>
+                <h4 class="text-muted"><%= title%>:</h4>
             </div>
         </div>
         <!-- Modal -->
@@ -56,10 +56,6 @@
                     <div class="ui top right attached label"><%=comments.topic%></div>
                     <div class="header"><%= comments.title %></div>
                     <div class="meta" >
-                        <span data-l10n-id="tags"></span>
-                        <% comments.Tags.forEach(function(item){ %>
-                        <span class="category"> <%=item.dataValues.name%> </span>
-                        <%});%>
                     </div>
                     <div class="ui medium image">
                         <img src="<%=comments.pic%>">
@@ -86,56 +82,6 @@
                             </span>
 
                                     <% };%>
-                    </div>
-                </div>
-            </a>
-            <% });%>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <h4 class="text-muted" data-l10n-id="latest"></h4>
-            </div>
-        </div>
-        <!-- Modal -->
-
-        <hr>
-        <div class="ui three stackable cards">
-            <% latest.forEach(function(comments){ %>
-            <a class="ui card" href="/article?id=<%=comments.id%>">
-                <div class="content">
-                    <div class="ui top right attached label"><%=comments.topic%></div>
-                    <div class="header"><%= comments.title %></div>
-                    <div class="meta" >
-                        <span data-l10n-id="tags"></span>
-                        <% comments.Tags.forEach(function(item){ %>
-                        <span class="category"> <%=item.dataValues.name%> </span>
-                        <%});%>
-                    </div>
-                    <div class="ui medium image">
-                        <img src="<%=comments.pic%>">
-                    </div>
-                    <div class="description" >
-                        <%= comments.description %>
-                    </div>
-                </div>
-                <div class="extra content">
-                    <div class="right floated author">
-                        <img class="ui avatar image" src="<%=comments.avatar%>">
-                        <%= comments.user.name %>
-                    </div>
-                    <div align="left">
-                        <%= comments.avg%>
-                        <% for(var i=0; comments.avg-i>=1; i++) {%>
-                            <span style="color: Gold">
-                                    <i class="fas fa-star"></i>
-                                     </span>
-                        <% };%>
-                        <% for(var i=0; i<5-comments.avg; i++) {%>
-                            <span style="color: LightSlateGrey;">
-                            <i class="fas fa-star"></i>
-                            </span>
-
-                        <% };%>
                     </div>
                 </div>
             </a>

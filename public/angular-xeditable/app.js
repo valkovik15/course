@@ -18,8 +18,8 @@ app.controller('Ctrl', function($scope, $timeout,$http) {
     }, 1000);
 
     $scope.test = function(word) {
-        alert("clicked on " + word);
-    }
+        alert("Wanna search"+word);
+    };
     $scope.updateUser = function() {
         return $http.post('/updateUser', {id: $scope.iden, name: $scope.nam, email:$scope.email});
     };

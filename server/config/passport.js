@@ -57,7 +57,8 @@ module.exports = function(passport, user) {
 
             User.findOne({
                 where: {
-                    email: email
+                    email: email,
+                    isActive:true
                 }
             }).then(function (user) {
 
@@ -158,9 +159,16 @@ module.exports = function(passport, user) {
 
 
                     // if the user is found, then log them in
+
                     if (user) {
                         console.log('Hey');
-                        return done(null, user); // user found, return that user
+                        if(user.isActive) {
+                            return done(null, user); // user found, return that user
+                        }
+                        else
+                        {
+                            return done(null, false);
+                        }
                     } else {
                         var data = {
                             email:profile.emails[0].value,
@@ -214,7 +222,13 @@ module.exports = function(passport, user) {
                     // if the user is found, then log them in
                     if (user) {
                         console.log('Hey');
-                        return done(null, user); // user found, return that user
+                        if(user.isActive) {
+                            return done(null, user); // user found, return that user
+                        }
+                        else
+                        {
+                            return done(null, false);
+                        }
                     } else {
                         var data = {
                             email:params.email,

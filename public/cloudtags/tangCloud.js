@@ -17,7 +17,7 @@ angular.module('tangcloud', [])
                     text = '<a data-ng-href="{{entry.href}}">' + text + '</a>';
                 }
                 return '<div class="tangcloud">' +
-                    '<span ng-repeat="entry in words track by $index" ' + clickAttr + '>' + text + '</span>' +
+                    '<span ng-repeat="entry in words track by $index" ' + clickAttr + '>' +' <a href="searchtag?word='+text+'">'+ text +'</a> </span>' +
                     '</div>';
             },
 
@@ -160,6 +160,7 @@ angular.module('tangcloud', [])
                         function moveSpanToEmptySpot(span, startX, startY) {
                             var style = 'position: absolute; left:' + startX + 'px; top: ' + startY + 'px;';
                             span.attr('style', style);
+
                             span.removeClass('tangcloud-item-hidden');
                         }
                     });

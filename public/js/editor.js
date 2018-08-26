@@ -37,7 +37,6 @@ app.controller("markdownEditorController", ["$scope",  "$http","$mdDialog",funct
 
     $scope.onPublish = function() {
 	console.log(scope.tags);
-	alert("");
         var data = $.param({
             text:$scope.editor.src,
             title:$scope.editor.title,
@@ -61,12 +60,21 @@ app.controller("markdownEditorController", ["$scope",  "$http","$mdDialog",funct
     		case "bold":
     			if ($scope.hasSelection()) {
     				// enhance
-    				$scope.insertText("**" + sel.text + "**", sel.start, sel.end);
+    				$scope.insertText("###" + sel.text , sel.start, sel.end);
     			} else {
     				// add new
     				$scope.insertPlacehodler("**bold**", 2, 2);
     			}
     			break;
+            case "step":
+                if ($scope.hasSelection()) {
+                    // enhance
+                    $scope.insertText("### " + sel.text, sel.start, sel.end);
+                } else {
+                    // add new
+                    $scope.insertPlacehodler("### Step", 4, 0);
+                }
+                break;
     		case "italic":
     			if ($scope.hasSelection()) {
     				// enhance
@@ -200,7 +208,6 @@ app.controller("markdownEditorController", ["$scope",  "$http","$mdDialog",funct
                             iUrl=element;
                             var aUrl = "![image text](" + iUrl + ")";
                             $scope.insertPlacehodler(aUrl, 2, iUrl.length + 3 );
-                            alert(aUrl);
                         });
                     }
                     else

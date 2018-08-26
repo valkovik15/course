@@ -24,3 +24,5 @@
 <select "Выберите файл">
 <just placeholder:"Печатать сюда">
 <change "English version">
+<best "Топ-5 лучших постов">
+<latest "Последние посты">

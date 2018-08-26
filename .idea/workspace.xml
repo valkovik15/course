@@ -2,28 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57c1d3d6-6b81-4c22-a168-264d0c7ae688" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/lib/l20n.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/locales/en-US.l20n" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/locales/fr.l20n" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/locales/manifest.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/locales/ru.l20n" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/angular-xeditable/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/angular-xeditable/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/cloudtags/tangCloud.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/cloudtags/tangCloud.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/editor.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/editor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/locales/en-US.l20n" beforeDir="false" afterPath="$PROJECT_DIR$/public/locales/en-US.l20n" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/locales/ru.l20n" beforeDir="false" afterPath="$PROJECT_DIR$/public/locales/ru.l20n" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/style/editor.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/editor.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/testController.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/testController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/testController1.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/testController1.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/config/passport.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/config/passport.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/views/pages/article.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/server/views/pages/article.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/views/pages/comments.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/server/views/pages/comments.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/views/pages/login.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/server/views/pages/login.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/views/pages/new.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/server/views/pages/new.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/views/pages/profile.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/server/views/pages/profile.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/views/pages/signup.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/server/views/pages/signup.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/views/partials/header.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/server/views/partials/header.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/views/partials/footer.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/server/views/partials/footer.ejs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -109,14 +101,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="css" value="27" />
-          <entry key="ejs" value="120" />
+          <entry key="css" value="28" />
+          <entry key="ejs" value="124" />
           <entry key="gitignore" value="2" />
           <entry key="html" value="10" />
           <entry key="jade" value="2" />
-          <entry key="js" value="199" />
+          <entry key="js" value="206" />
           <entry key="json" value="7" />
-          <entry key="l20n" value="7" />
+          <entry key="l20n" value="9" />
           <entry key="md" value="3" />
           <entry key="sass" value="1" />
           <entry key="scss" value="1" />
@@ -128,14 +120,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="27" />
-          <entry key="EJS" value="120" />
+          <entry key="CSS" value="28" />
+          <entry key="EJS" value="124" />
           <entry key="HTML" value="10" />
           <entry key="JSON" value="7" />
           <entry key="Jade" value="2" />
-          <entry key="JavaScript" value="199" />
+          <entry key="JavaScript" value="206" />
           <entry key="Markdown" value="3" />
-          <entry key="PLAIN_TEXT" value="15" />
+          <entry key="PLAIN_TEXT" value="17" />
           <entry key="SCSS" value="1" />
           <entry key="SVG" value="1" />
           <entry key="Sass" value="1" />
@@ -144,24 +136,24 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="245" />
-          <entry key="ejs" value="7986" />
+          <entry key="css" value="256" />
+          <entry key="ejs" value="8061" />
           <entry key="gitignore" value="22" />
           <entry key="html" value="135" />
-          <entry key="js" value="18137" />
+          <entry key="js" value="19520" />
           <entry key="json" value="26" />
-          <entry key="l20n" value="1621" />
+          <entry key="l20n" value="1715" />
           <entry key="scss" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="245" />
-          <entry key="EJS" value="7985" />
+          <entry key="CSS" value="256" />
+          <entry key="EJS" value="8060" />
           <entry key="HTML" value="135" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="18138" />
-          <entry key="PLAIN_TEXT" value="1643" />
+          <entry key="JavaScript" value="19521" />
+          <entry key="PLAIN_TEXT" value="1737" />
           <entry key="SCSS" value="12" />
         </counts>
       </usages-collector>
@@ -175,65 +167,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/js/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1518">
-              <caret line="66" column="13" lean-forward="true" selection-start-line="66" selection-start-column="13" selection-end-line="66" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="503">
-              <caret line="499" column="29" lean-forward="true" selection-start-line="499" selection-start-column="29" selection-end-line="499" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="506">
-              <caret line="22" selection-start-line="22" selection-end-line="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/views/pages/comments.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="63" column="16" selection-start-line="63" selection-start-column="16" selection-end-line="65" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/views/partials/header.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="22" column="8" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/views/pages/error.ejs">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/server/views/pages/index.ejs">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/routes/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="427">
-              <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
+            <state relative-caret-position="204">
+              <caret line="405" column="44" selection-start-line="405" selection-start-column="44" selection-end-line="405" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -241,20 +178,80 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/config/passport.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="664">
-              <caret line="258" column="1" selection-start-line="258" selection-start-column="1" selection-end-line="258" selection-end-column="1" />
-              <folding>
-                <element signature="e#4292#6140#0" />
-              </folding>
+            <state relative-caret-position="23">
+              <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/views/pages/profile.ejs">
+        <entry file="file://$PROJECT_DIR$/server/views/partials/footer.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="63" column="28" selection-start-line="63" selection-start-column="28" selection-end-line="63" selection-end-column="28" />
+            <state relative-caret-position="161">
+              <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/cloudtags/tangCloud.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="19" column="126" selection-start-line="19" selection-start-column="126" selection-end-line="19" selection-end-column="126" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/views/pages/searchtags.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="436">
+              <caret line="75" column="63" lean-forward="true" selection-start-line="75" selection-start-column="63" selection-end-line="75" selection-end-column="63" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/views/pages/comments.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="137">
+              <caret line="117" column="51" selection-start-line="117" selection-start-column="51" selection-end-line="117" selection-end-column="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/js/editor.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1502">
+              <caret line="38" column="28" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/testController1.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="12" column="43" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/angular-xeditable/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="299">
+              <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/testController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="12" column="43" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -270,36 +267,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>tags</find>
-      <find>ln</find>
-      <find>jquer</find>
-      <find>...</find>
-      <find>data</find>
-      <find>attr</find>
-      <find>l10n</find>
-      <find>Just ty</find>
-      <find>mysq</find>
-      <find>mysql-sess</find>
-      <find>cookie</find>
-      <find>/admin</find>
-      <find>admin</find>
+      <find>status</find>
+      <find>isactive</find>
+      <find>'/admin</find>
+      <find>posts</find>
+      <find>posts.sor</find>
+      <find>slice</find>
+      <find>publi</find>
+      <find>ico</find>
+      <find>case</find>
+      <find>http.post</find>
+      <find>comment</find>
+      <find>paper</find>
+      <find>l10</find>
       <find>comments</find>
-      <find>chec</find>
-      <find>/login</find>
-      <find>check</find>
-      <find>render</find>
-      <find>locale</find>
-      <find>crea</find>
-      <find>prof</find>
-      <find>/prof</find>
-      <find>/pro</find>
-      <find>checkl</find>
-      <find>change</find>
-      <find>rank</find>
-      <find>facebook</find>
-      <find>ui</find>
-      <find>role</find>
-      <find>avata</find>
+      <find>$scope.test = function(word)</find>
+      <find>count_avg</find>
+      <find>avat</find>
+      <find>.pos</find>
+      <find>$http.post</find>
+      <find>app.post</find>
+      <find>coun</find>
+      <find>searchtags</find>
+      <find>function(err</find>
+      <find>position</find>
+      <find>attr</find>
+      <find>searcht</find>
+      <find>alert</find>
+      <find>.attr</find>
+      <find>avatar</find>
+      <find>searchta</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -308,7 +305,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/public/comments.css" />
         <option value="$PROJECT_DIR$/server/views/pages/test.ejs" />
         <option value="$PROJECT_DIR$/models/likes.js" />
         <option value="$PROJECT_DIR$/public/admin/index.html" />
@@ -324,7 +320,6 @@
         <option value="$PROJECT_DIR$/server/views/pages/test.html" />
         <option value="$PROJECT_DIR$/server/views/pages/testy.ejs" />
         <option value="$PROJECT_DIR$/public/dist/components/menu.css" />
-        <option value="$PROJECT_DIR$/public/style/editor.css" />
         <option value="$PROJECT_DIR$/models/index.js" />
         <option value="$PROJECT_DIR$/server/views/pages/template.html" />
         <option value="$PROJECT_DIR$/public/cloud/index.html" />
@@ -334,31 +329,33 @@
         <option value="$PROJECT_DIR$/public/tagscloud/tangCloud.js" />
         <option value="$PROJECT_DIR$/public/style/app.css" />
         <option value="$PROJECT_DIR$/cloudtags/tangCloud.js" />
-        <option value="$PROJECT_DIR$/public/cloudtags/tangCloud.js" />
-        <option value="$PROJECT_DIR$/server/views/partials/footer.ejs" />
         <option value="$PROJECT_DIR$/models/posts.js" />
-        <option value="$PROJECT_DIR$/public/angular-xeditable/app.js" />
-        <option value="$PROJECT_DIR$/public/testController1.js" />
-        <option value="$PROJECT_DIR$/public/testController.js" />
         <option value="$PROJECT_DIR$/models/comments.js" />
         <option value="$PROJECT_DIR$/public/locales/manifest.json" />
         <option value="$PROJECT_DIR$/server/views/pages/translate.ejs" />
         <option value="$PROJECT_DIR$/public/css/style.css" />
         <option value="$PROJECT_DIR$/public/js/index.js" />
-        <option value="$PROJECT_DIR$/public/js/editor.js" />
-        <option value="$PROJECT_DIR$/server/views/pages/comments.ejs" />
         <option value="$PROJECT_DIR$/server/views/pages/article.ejs" />
         <option value="$PROJECT_DIR$/server/views/pages/login.ejs" />
-        <option value="$PROJECT_DIR$/server/views/pages/new.ejs" />
         <option value="$PROJECT_DIR$/server/views/pages/signup.ejs" />
         <option value="$PROJECT_DIR$/models/user.js" />
-        <option value="$PROJECT_DIR$/public/locales/en-US.l20n" />
-        <option value="$PROJECT_DIR$/public/locales/ru.l20n" />
         <option value="$PROJECT_DIR$/server/views/partials/header.ejs" />
         <option value="$PROJECT_DIR$/server/routes/index.js" />
-        <option value="$PROJECT_DIR$/server/config/passport.js" />
         <option value="$PROJECT_DIR$/server/views/pages/profile.ejs" />
+        <option value="$PROJECT_DIR$/server/config/passport.js" />
+        <option value="$PROJECT_DIR$/public/locales/ru.l20n" />
+        <option value="$PROJECT_DIR$/public/locales/en-US.l20n" />
+        <option value="$PROJECT_DIR$/server/views/pages/comments.ejs" />
+        <option value="$PROJECT_DIR$/public/style/editor.css" />
+        <option value="$PROJECT_DIR$/server/views/pages/new.ejs" />
+        <option value="$PROJECT_DIR$/public/js/editor.js" />
+        <option value="$PROJECT_DIR$/public/angular-xeditable/app.js" />
+        <option value="$PROJECT_DIR$/public/testController1.js" />
+        <option value="$PROJECT_DIR$/public/testController.js" />
+        <option value="$PROJECT_DIR$/server/views/partials/footer.ejs" />
+        <option value="$PROJECT_DIR$/public/cloudtags/tangCloud.js" />
         <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/server/views/pages/searchtags.ejs" />
       </list>
     </option>
   </component>
@@ -411,6 +408,12 @@
               <item name="course" type="b2602c69:ProjectViewProjectNode" />
               <item name="course" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="course" type="b2602c69:ProjectViewProjectNode" />
+              <item name="course" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="cloudtags" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="course" type="b2602c69:ProjectViewProjectNode" />
@@ -498,15 +501,15 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/server/views/pages" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/server/views/pages" />
       <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/public/angular-xeditable" />
       <recent name="$PROJECT_DIR$/public/style" />
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/server/views/pages" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -637,18 +640,18 @@
       <workItem from="1535237758653" duration="4103000" />
       <workItem from="1535265658306" duration="7683000" />
       <workItem from="1535296003358" duration="1712000" />
-      <workItem from="1535299868393" duration="5516000" />
+      <workItem from="1535299868393" duration="20676000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="356757000" />
+    <option name="totallyTimeSpent" value="371917000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24590164" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.32568306" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -697,20 +700,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/cloud/js/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1955">
-          <caret line="85" column="71" selection-start-line="85" selection-start-column="71" selection-end-line="85" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/template.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/tags/ng-tags-input.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -772,13 +761,6 @@
     <entry file="file://$PROJECT_DIR$/public/angular-xeditable/js/xeditable.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/views/partials/footer.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="6" selection-start-line="6" selection-end-line="8" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/views/partials/stylesheet.ejs">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -792,20 +774,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/testController1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/cloudtags/tangCloud.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2001">
-          <caret line="87" column="55" selection-start-line="87" selection-start-column="55" selection-end-line="87" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/posts.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
@@ -813,24 +781,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/angular-xeditable/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/comments.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/testController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
         </state>
       </provider>
     </entry>
@@ -858,13 +812,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="118">
           <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/editor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -899,38 +846,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/views/pages/new.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="25" column="11" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/user.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
           <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/locales/ru.l20n">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="25" column="8" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/locales/en-US.l20n">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1518">
-          <caret line="66" column="13" lean-forward="true" selection-start-line="66" selection-start-column="13" selection-end-line="66" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -958,30 +877,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/views/pages/comments.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="63" column="16" selection-start-line="63" selection-start-column="16" selection-end-line="65" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="499" column="29" lean-forward="true" selection-start-line="499" selection-start-column="29" selection-end-line="499" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/config/passport.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="664">
-          <caret line="258" column="1" selection-start-line="258" selection-start-column="1" selection-end-line="258" selection-end-column="1" />
-          <folding>
-            <element signature="e#4292#6140#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/views/pages/profile.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
@@ -991,6 +886,111 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/views/pages/index.ejs">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/locales/ru.l20n">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="598">
+          <caret line="26" selection-start-line="26" selection-end-line="27" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/views/pages/new.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="59" column="15" selection-start-line="59" selection-start-column="12" selection-end-line="59" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/locales/en-US.l20n">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="667">
+          <caret line="29" column="21" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="834">
+          <caret line="66" column="13" lean-forward="true" selection-start-line="66" selection-start-column="13" selection-end-line="66" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/style/editor.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/testController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="12" column="43" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/views/partials/footer.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/config/passport.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/angular-xeditable/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/testController1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="12" column="43" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/views/pages/comments.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="117" column="51" selection-start-line="117" selection-start-column="51" selection-end-line="117" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/editor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1502">
+          <caret line="38" column="28" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/cloudtags/tangCloud.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="19" column="126" selection-start-line="19" selection-start-column="126" selection-end-line="19" selection-end-column="126" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="405" column="44" selection-start-line="405" selection-start-column="44" selection-end-line="405" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/views/pages/searchtags.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="75" column="63" lean-forward="true" selection-start-line="75" selection-start-column="63" selection-end-line="75" selection-end-column="63" />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>
