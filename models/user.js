@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
         password:DataTypes.STRING,
         pic: DataTypes.STRING,
         role: DataTypes.ENUM('user', 'admin'),
-        isActive: DataTypes.BOOLEAN
+        isActive: DataTypes.BOOLEAN,
+        locale: DataTypes.STRING(5)
 
     }, {charset: 'utf8',
         collate: 'utf8_general_ci'});

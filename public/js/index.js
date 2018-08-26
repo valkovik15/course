@@ -194,7 +194,6 @@ function starRating() {
     return {
         restrict: 'EA',
         template:
-             '<div>Rank:</div>'+
             '<ul class="star-rating">' +
             '<li></li>'+
             '<li ng-repeat="star in stars" class="star" ng-class="{filled: star.filled}" ng-click="clicked($index);">' +

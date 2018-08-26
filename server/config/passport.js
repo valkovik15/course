@@ -2,12 +2,14 @@
 var bCrypt = require('bcrypt-nodejs');
 var LocalStrategy    = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
+const VKontakteStrategy = require('passport-vkontakte').Strategy;
 // load up the user model
 var configAuth = require('./auth');
 
 module.exports = function(passport, user) {
     console.log(user);
     var User = user;
+
     // passport init setup
     // serialize the user for the session
 
@@ -165,7 +167,7 @@ module.exports = function(passport, user) {
                             pic: profile.photos[0].value,
                             name: profile.displayName,
                             password:null,
-                             role:'user', isActive:true
+                             role:'user', isActive:true, locale:"en-US"
                         };
                         console.log('data');
                         console.log(data);
@@ -193,5 +195,65 @@ module.exports = function(passport, user) {
             });
 
         }));
+    passport.use(new VKontakteStrategy(
+        {
+            clientID:     6673517, // VK.com docs call it 'API ID', 'app_id', 'api_id', 'client_id' or 'apiId'
+            clientSecret: 'acs5JMSdQMHa82gyh9Jz',
+            callbackURL:  "http://localhost:3000/auth/vkontakte/callback"
+        },
+        function myVerifyCallbackFn(accessToken, refreshToken, params, profile, done) {
+            process.nextTick(function() {
 
+                // find the user in the database based on their facebook id
+                User.findOne({where: { email :  params.email }}).then( user=> {
+                    console.log(profile);
+                    // if there is an error, stop everything and return that
+                    // ie an error connecting to the database
+
+
+                    // if the user is found, then log them in
+                    if (user) {
+                        console.log('Hey');
+                        return done(null, user); // user found, return that user
+                    } else {
+                        var data = {
+                            email:params.email,
+                            pic: profile.photos[0].value,
+                            name: profile.displayName,
+                            password:null,
+                            role:'user', isActive:true, locale:"en-US"
+                        };
+                        console.log('data');
+                        console.log(data);
+                        User.create(data).then(function(newUser, created) {
+
+                            if (!newUser) {
+                                console.log('What');
+                                return done(null, false);
+
+                            }
+
+                            if (newUser) {
+                                console.log('okey');
+                                return done(null, newUser);
+
+                            }
+
+                        });
+                        // if there is no user found with that facebook id, create them
+
+                        console.log(profile);
+                        // save our user to the database
+                    }
+                });
+            // Now that we have user's `profile` as seen by VK, we can
+            // use it to find corresponding database records on our side.
+            // Also we have user's `params` that contains email address (if set in
+            // scope), token lifetime, etc.
+            // Here, we have a hypothetical `User` class which does what it says.
+            console.log(params);
+            console.log(profile);
+        });
+
+}));
 };

@@ -28,7 +28,8 @@ var options = {
     port: 3306,
     user: 'root',
     password: 'vk1506',
-    database: 'session_test'
+    database: 'session_test',
+
 };
 var gravatar=require('gravatar');
 
@@ -42,6 +43,7 @@ app.use(session({
 //Sync Database
 models.sequelize.sync().then(function() {
 
+
     console.log('Nice! Database looks fine')
 
 }).catch(function(err) {
@@ -49,7 +51,7 @@ models.sequelize.sync().then(function() {
     console.log(err, "Something went wrong with the Database Update!")
 
 });
-// view engine setup
+// view engine setupv
 app.set('views', path.join(__dirname, 'server/views/pages'));
 app.set('view engine', 'ejs');
 
@@ -142,6 +144,7 @@ app.get( '/trigger', function( req, res ) {
 app.get('/edit', isLoggedIn, function(req, res, next) {
     models.Posts.findOne({where: {id:req.query.id}})
         .then(function(post) {
+
             if((post.userId==req.user.id)||(req.user.role='admin'))
             {post.getTags().then(function(tags)
             {
@@ -151,7 +154,7 @@ app.get('/edit', isLoggedIn, function(req, res, next) {
 
                 );
                 console.log(tags);
-                res.render('new', { title: post.title, body:post.body, topic: post.topic, pic:post.pic, tags:tags, id:post.id});
+                res.render('new', { title: post.title, body:post.body, topic: post.topic, pic:post.pic, tags:tags, id:post.id, locale:req.session.locale});
             }
             );
 
@@ -180,8 +183,6 @@ app.get( '/com', function( req, res ) {
                     pic = item.user.pic || gravatar.url(item.user.email, {s: '80', r: 'x', d: 'retro'}, true);
                     name = item.user.name;
                     text = item.dataValues.text;
-                    console.log("AAAAAAAAAAAAAAAAAAAAAAAAA")
-
                     data.push(
                     {pic:pic, text:text, name:name, likes:item.Likes.length, liked:!!item.Likes.find(item => item.userId==user), iden:item.id});
                 }
@@ -234,9 +235,22 @@ app.get( '/like', function( req, res ) {
         res.send('error');
     }
 });
+function checklocale(req)
+{
+
+        if(!req.user) {
+            req.session.locale = "en-US";
+        }
+        else
+        {
+            req.session.locale=req.user.locale;
+        }
+
+}
 
 app.get('/admin', function(req, res)
 {
+    checklocale(req);
     var User=models.user;
     User.findAll({})
         .then(function(users)
@@ -250,7 +264,7 @@ app.get('/admin', function(req, res)
             );
 
             res.render('admin', {
-
+                locale:req.session.locale,
                 users:data
             });
         })
@@ -277,33 +291,6 @@ app.get('/query', function(req, res)
 
 });
 
-function search_comments(q) {
-    models.Comments.findAll({
-        where: sequelize.literal('MATCH (text) AGAINST (:q)'),
-        replacements: {
-            q: q
-        }
-        , include: [{model: models.Posts}]
-    }).then
-    (function (comments) {
-        temp = [];
-        comments.forEach(function (item1, i1, arr1) {
-            temp.push({ 'url': ('article?id=' + item1.Post.id),
-                'title': item1.Post.title,
-                'description': item1.Post.description
-            });
-            if(temp.length==arr1.length)
-            {
-               return new Promise(function (resolve, reject)
-                {
-                   resolve(temp);
-                });
-
-            }
-
-        });
-    });
-}
 
 app.get('/search',function(req, res) {
     let promise1=promise2 = new Promise(function(resolve, reject) {
@@ -370,11 +357,10 @@ app.get('/search',function(req, res) {
     });
 
 });
-
 app.post('/updateUser', function(req,res)
 {
     console.log(req.body);
-    models.user.findOne({where: {id:id}})
+    models.user.findOne({where: {id:req.body.id}})
         .then(function(user) {
             user.updateAttributes({name:req.body.name, email:req.body.email});
         });
@@ -408,6 +394,7 @@ app.get('/cl', function(req, res) {
 });
 app.get('/comments', function(req, res)
 {
+    checklocale(req);
     var targ;
     var Posts = models.Posts;
     var User=models.user;
@@ -428,6 +415,7 @@ app.get('/comments', function(req, res)
 
             title: 'Articles Page',
             comments: posts,
+            locale:req.session.locale
 
         });
     })
@@ -457,7 +445,7 @@ app.get('/getsteps', function(req, res) {
             data={"steps":steps, "toc":toc, "title":post.title};
             res.send(data);
         });
-})
+});
 
 app.get('/getstars', function(req, res) {
     models.Grades.findOne({where: {postId:req.query.id, userId:req.query.user}})
@@ -475,6 +463,9 @@ app.get('/getstars', function(req, res) {
 
 
         });
+});
+app.get('/translate', function(req, res) {
+  res.render('translate');
 });
 app.get('/ban', function(req, res)
 {
@@ -539,26 +530,22 @@ app.get('/delet', function(req, res)
 });
 app.get('/article', function(req, res) {
 console.log('data');
+checklocale(req);
 var x=req.user;
 if(x)
 {
     x=x.id;
 }
     res.render('article',{
-
+        locale:req.session.locale,
         id:req.query.id,
         user:x
     });
 });
 app.get('/publish', function(req, res)
 {
-
-    console.log(req.query);
-    tags=req.query.tags;
-
+   tags=req.query.tags;
      if(req.isAuthenticated()) {
-         console.log(req.query);
-         console.log(models);
          var Posts = models.Posts;
          models.Posts.findOne({
              where: {
@@ -582,11 +569,9 @@ app.get('/publish', function(req, res)
                                          .spread((tag, created) => {
                                              post.addTags([tag]);
                                          });
-
                                  });
                          }
                      });
-
                  });
              } else {
                  var data_ =
@@ -634,6 +619,7 @@ function isLoggedIn(req, res, next) {
 };
 app.get('/profile', isLoggedIn, function(req, res, next) {
     console.log(req.user);
+    checklocale(req);
 
     if(req.user.role=='admin')
     {
@@ -662,7 +648,8 @@ app.get('/profile', isLoggedIn, function(req, res, next) {
                     title: 'Profile Page',
                     user: user.dataValues,
                     avatar: user.pic || gravatar.url(req.user.email, {s: '100', r: 'x', d: 'retro'}),
-                    posts: posts
+                    posts: posts,
+                    locale:req.session.locale
                 })
             }
             else
@@ -674,7 +661,8 @@ app.get('/profile', isLoggedIn, function(req, res, next) {
                         title: 'Profile Page',
                         user: user.dataValues,
                         avatar: user.pic || gravatar.url(req.user.email, {s: '100', r: 'x', d: 'retro'}),
-                        posts: posts
+                        posts: posts,
+                        locale:req.session.locale
                     })
 
                 })
@@ -711,6 +699,37 @@ app.get('/rank',  function(req, res)
 
 }
 );
+app.get('/local',  function(req, res)
+    {
+        let newlocale;
+        if(req.session.locale=="ru") {
+           req.session.locale="en-US";
+           newlocale=req.session.locale;
+            console.log(newlocale);
+        }
+        else {
+            newlocale=req.session.locale="ru";
+            console.log(newlocale);
+        }
+        if (req.user) {
+                models.user.findOne({where:{id:req.user.id}}).then(
+                    function(u)
+                    {
+                        u.updateAttributes({locale:newlocale});
+                        res.redirect('/profile');
+                    }
+
+                );
+
+            }
+        else
+        {
+
+            res.redirect('/profile');
+        }
+
+    }
+);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -735,7 +754,7 @@ if (app.get('env') === 'development') {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
-            error: err
+            error: err, locale:req.session.locale
         });
     });
 }
@@ -746,7 +765,7 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
-        error: {}
+        error: {}, locale:req.session.locale
     });
 });
 

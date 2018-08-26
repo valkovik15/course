@@ -4,6 +4,31 @@
     <% include ../partials/stylesheet %>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+
+    <!-- L20n setup -->
+    <link rel="localization" href="../locales/manifest.json">
+    <script type="application/l10n-data+json">
+      {
+        "build": "prod",
+        "mode": "multi"
+      }
+    </script>
+
+    <!-- Include the dist version of L20n -->
+    <script src="../lib/l20n.js"></script>
+    <script>
+
+        // L20n and document.l10n are now available
+        document.l10n.ready(function() {
+            if(!( document.l10n.supportedLocales[0] == '<%=locale %>')) {
+                console.log(document.l10n.supportedLocales);
+                console.log('<%=locale %>');
+                document.l10n.requestLocales('<%=locale %>');
+            }
+            console.log("Document's context is ready");
+        });
+
+    </script>
 </head>
 
 <body>
@@ -18,7 +43,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <h4 class="text-muted">Comments</h4>
+                <h4 class="text-muted" data-l10n-id="posts"></h4>
             </div>
         </div>
         <!-- Modal -->
@@ -30,8 +55,8 @@
                 <div class="content">
                     <div class="ui top right attached label"><%=comments.topic%></div>
                     <div class="header"><%= comments.title %></div>
-                    <div class="meta">
-                        Tags:
+                    <div class="meta" >
+                        <span data-l10n-id="tags"></span>
                         <% comments.Tags.forEach(function(item){ %>
                         <span class="category"> <%=item.dataValues.name%> </span>
                         <%});%>

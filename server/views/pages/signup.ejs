@@ -5,6 +5,29 @@
     <% include ../partials/stylesheet %>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-sanitize.min.js"></script>
+    <!-- L20n setup -->
+    <link rel="localization" href="../locales/manifest.json">
+    <script type="application/l10n-data+json">
+      {
+        "build": "prod",
+        "mode": "multi"
+      }
+    </script>
+
+    <!-- Include the dist version of L20n -->
+    <script src="../lib/l20n.js"></script>
+    <script>
+
+        // L20n and document.l10n are now available
+        document.l10n.ready(function() {
+            if(!( document.l10n.supportedLocales[0] =="<%=locale%>")) {
+                console.log(document.l10n.supportedLocales);
+                document.l10n.requestLocales("<%=locale%>");
+            }
+            console.log("Document's context is ready");
+        });
+
+    </script>
 </head>
 <body>
     <% include ../partials/header %>
@@ -16,16 +39,15 @@
             </div>
             <% } %>
             <form class="form-signin" action="/signup" method="post">
-                <h2 class="form-signin-heading">Please signup</h2>
-				<label for="inputName" class="sr-only">Name address</label>
-                <input type="text" id="name" name="name" class="form-control" placeholder="Name" required="">
+                <h2 class="form-signin-heading" data-l10n-id="please">Please signup</h2>
+				<label for="inputName" class="sr-only" >Name address</label>
+                <input type="text" id="name" name="name" class="form-control"  data-l10n-id="name">
                 <label for="inputEmail" class="sr-only">Email address</label>
-                <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required="">
+                <input type="email" id="email" name="email" class="form-control"  required="" data-l10n-id="email">
                 <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="" data-l10n-id="password">
+                <button class="btn btn-lg btn-primary btn-block" type="submit" data-l10n-id="login"></button>
                 <br>
-                <p>Don't have an account? <a href="/signup">Signup</a> ,it's free.</p>
             </form>
         </div>
 

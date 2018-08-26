@@ -9,26 +9,28 @@
     <div class="header item" >
         Wiki
     </div>
-    <a class="item" href="/comments">
+    <a class="item" href="/comments" data-l10n-id="feed">
         Feed
     </a>
-    <a class="item" href="/profile">
+    <a class="item" href="/profile" data-l10n-id="profile">
         Profile
     </a>
-    <a class="item" href="/new">
+    <a class="item" href="/new" data-l10n-id="create">
         Create your instruction!
     </a>
-    <a class="item" href="/signup">
+    <a class="item" href="/signup" data-l10n-id="signup">
         Sign up
     </a>
-    <a class="item" href="/login">
+    <a class="item" href="/login" data-l10n-id="login">
         Log in
+    </a>
+    <a class="item" href="/local" data-l10n-id="change">
     </a>
     <a href="/auth/facebook" class="btn btn-primary"> Facebook</a>
     <div class="right menu">
     <div class="ui search">
         <div class="ui icon input">
-            <input class="prompt" placeholder="Creating bomb..." type="text">
+            <input class="prompt" data-l10n-id="bomb" type="text">
             <i class="search icon"></i>
         </div>
         <div class="results"></div>
@@ -44,21 +46,6 @@
   js.src = 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v3.1&appId=210456179651489&autoLogAppEvents=1';
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
-    var categoryContent = [
-        { category: 'Africa', title: 'Nigeria', url:'google.com'},
-        { category: 'South America', title: 'Brazil' },
-        { category: 'South America', title: 'Peru' },
-        { category: 'North America', title: 'Canada' },
-        { category: 'Asia', title: 'South Korea' },
-        { category: 'Asia', title: 'Japan' },
-        { category: 'Asia', title: 'China' },
-        { category: 'Europe', title: 'Denmark' },
-        { category: 'Europe', title: 'England' },
-        { category: 'Europe', title: 'France' },
-        { category: 'Europe', title: 'Germany' },
-        { category: 'Africa', title: 'Ethiopia' },
-        { category: 'Africa', title: 'Zimbabwe' },
-    ];
     $('.ui.search')
         .search({
 

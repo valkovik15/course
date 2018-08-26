@@ -1,6 +1,40 @@
 <!DOCTYPE html>
 <html >
 <head>
+    <!-- L20n setup -->
+    <link rel="localization" href="../locales/manifest.json">
+    <script type="application/l10n-data+json">
+      {
+        "build": "prod",
+        "mode": "multi"
+      }
+    </script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <!-- Include the dist version of L20n -->
+    <script src="../lib/l20n.js"></script>
+    <script>
+
+        // L20n and document.l10n are now available
+        document.l10n.ready(function() {
+            if(!( document.l10n.supportedLocales[0] =="<%=locale%>")) {
+                console.log(document.l10n.supportedLocales);
+                document.l10n.requestLocales("<%=locale%>");
+                if("<%=locale%>"=='ru') {
+                    $('th.tit').html("Заголовок");
+                    $('th.date').html("Дата");
+                    $('th.grade').html("Оценка");
+                    $('th.grade').html("Оценка");
+                    $('th.descr').html("Описание");
+                    $('th.but').html("Действия");
+                    $('.batn.red').html("Удалить");
+                    $('.batn.yellow').html("Редактировать пост");
+                }
+            }
+            console.log("Document's context is ready");
+        });
+
+
+    </script>
     <title><%= title %></title>
     <% include ../partials/stylesheet %>
     <link rel="stylesheet" href="../profile/css/style.css">
@@ -27,7 +61,6 @@
 
     <div class="container">
 
-        <h1><%= title %></h1>
         <div class="datails">
 
             <div class="card text-xs-center">
@@ -35,40 +68,40 @@
                 <br>
                 <img class="card-img-top" src="<%= avatar %>" alt="Card image cap">
                 <div class="card-block">
-                    <h4 class="card-title">User Details</h4>
+                    <h4 class="card-title" data-l10n-id="data"></h4>
                     <p class="card-text">
                     <div  ng-init="nam='<%= user.name%>'; email='<%= user.email%>'; iden='<%= user.id%>'">
                         <!-- editable element -->
                         <div id="debug" style="margin-top: 30px">
-                            <strong>Name</strong>: <a href="#" editable-text="nam" onaftersave="updateUser()">{{nam|| "empty" }}</a><br>
-                            <strong>Email</strong>:  <a href="#" editable-text="email" onaftersave="updateUser()">{{email|| "empty" }}</a>
+                            <strong data-l10n-id="name"></strong>: <a href="#" editable-text="nam" onaftersave="updateUser()">{{nam|| "empty" }}</a><br>
+                            <strong data-l10n-id="email"></strong>:  <a href="#" editable-text="email" onaftersave="updateUser()">{{email|| "empty" }}</a>
                         </div>
                     </div>
 
 
                     </p>
-                    <a href="/logout" class="btn btn-default">Logout</a>
+                    <a href="/logout" class="btn btn-default" data-l10n-id="logout">Logout</a>
                 </div>
             </div>
             <div class="container" align="center">
 
 
 
-                <table id="table"
-                       data-toggle="table"
+                <table id="table" data-toggle="table"
                        data-search="true"
                        data-filter-control="true"
                        data-show-export="false"
                        data-click-to-select="true">
                     <thead>
                     <a href="#" class="batn red">Delete</a>
+
                     <tr>
                         <th data-field="state" data-checkbox="true"></th>
-                        <th data-field="title" data-filter-control="input" data-sortable="true">Title</th>
-                        <th data-field="date" data-filter-control="select" data-sortable="true">Date</th>
-                        <th data-field="grade" data-filter-control="input" data-sortable="true">Grade</th>
-                        <th data-field="descr" data-sortable="true">Description</th>
-                        <th data-field="btn"  data-formatter="TableActions"> Buttons</th>
+                        <th data-field="title" data-filter-control="input" data-sortable="true"  class="tit">Title</th>
+                        <th data-field="date" data-filter-control="select" data-sortable="true" class="date">Date</th>
+                        <th data-field="grade" data-filter-control="input" data-sortable="true" class="grade">Grade</th>
+                        <th data-field="descr" data-sortable="true" class="descr">Description</th>
+                        <th data-field="btn"  data-formatter="TableActions" class="but"> Buttons</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -87,7 +120,7 @@
 
             </div>
 
-            <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
             <script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
             <script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.js'></script>
             <script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/editable/bootstrap-table-editable.js'></script>
@@ -110,7 +143,14 @@
                 '<div id="buttons">'+'<a href=/delet?id='+row._id+'&back='+quer+' class="batn red">Delete</a>'+'<a href=/edit?id='+row._id+' class="batn yellow">Edit post</a>'+'</div>'
             ].join('');
             }
+            $(document).ready(function(){
+                $('.form-control').attr("placeholder", "");
+                if(document.l10n.supportedLocales[0] == 'ru')
+                {
 
+                }
+
+            });
             </script>
 
         </div>

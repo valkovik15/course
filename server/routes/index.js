@@ -8,13 +8,14 @@ router.get('/', function(req, res, next) {
     res.redirect('/comments');
 });
 router.get('/new', isLoggedIn, function(req, res, next) {
-
-    res.render('new', { title: 'New article' , body:"", topic:"", tags:"", pic:"", id:""});
+    checklocale(req);
+    res.render('new', { title: 'New article' , body:"", topic:"", tags:"", pic:"", id:"",locale:req.session.locale});
 });
 
 /* GET login page. */
 router.get('/login', function(req, res, next) {
-    res.render('login', { title: 'Login Page', message: req.flash('loginMessage') });
+    checklocale(req);
+    res.render('login', { title: 'Login Page', message: req.flash('loginMessage'), locale:req.session.locale });
 });
 /* POST login */
 router.post('/login', passport.authenticate('local-login', {
@@ -24,12 +25,26 @@ router.post('/login', passport.authenticate('local-login', {
     failureFlash : true
 }));
 
-
+function checklocale(req)
+{
+    if(!req.session.locale)
+    {
+        if(!req.user) {
+            req.session.locale = "en-US";
+        }
+        else
+        {
+            req.session.locale=req.user.locale;
+        }
+    }
+}
 
 
 /* GET Signup */
-router.get('/signup', function(req, res) {
-    res.render('signup', { title: 'Signup Page', message: req.flash('signupMessage') });
+router.get('/signup', function(req, res)
+{
+    checklocale(req);
+    res.render('signup', { title: 'Signup Page', message: req.flash('signupMessage'), locale:req.session.locale });
 });
 
 /* POST Signup */
@@ -42,6 +57,9 @@ router.post('/signup', passport.authenticate('local-signup', {
 router.get('/auth/facebook', passport.authenticate('facebook', {
       scope : ['public_profile', 'email']
     }));
+router.get('/auth/vk', passport.authenticate('vkontakte', {
+    scope : ['public_profile', 'email'], profileFields: ['email', 'city', 'bdate']
+}));
 
     // handle the callback after facebook has authenticated the user
   router.get('/auth/facebook/callback',
@@ -49,6 +67,11 @@ router.get('/auth/facebook', passport.authenticate('facebook', {
             successRedirect : '/profile',
             failureRedirect : '/'
         }));
+router.get('/auth/vkontakte/callback',
+    passport.authenticate('vkontakte', {
+        successRedirect : '/profile',
+        failureRedirect : '/'
+    }));
 
 /* GET Profile page. */
 

@@ -1,0 +1,28 @@
+<title "L20n demo">
+<hello "Hello, world!">
+
+<feed "Feed">
+<profile "Profile">
+<create "Create your instruction!">
+<signup "Sign up">
+<login "Login">
+<tags "Tags:">
+<posts "Posts">
+<please "Enter the data for sign-up, please">
+<name  "Username" placeholder:"Username">
+<email "E-mail" placeholder:"E-mail address">
+<password placeholder:"Password">
+<welcome "Enter data for login, please">
+<invite "Don't have an account?">
+<data "Data about user">
+<logout "Logout">
+<delete "Delete">
+<edit "Edit">
+<bomb placeholder:"How to create a bomb">
+<topic "Topic:">
+<descr placeholder:"Put description here">
+<upload "Upload a pic for your instruction">
+<tags "Tags">
+<select "Select a file">
+<just placeholder:"Just type here">
+<change "Русская версия">

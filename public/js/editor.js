@@ -6,7 +6,7 @@ app.controller("markdownEditorController", ["$scope",  "$http","$mdDialog",funct
     ];
     $scope.editor = {
     	src: '',
-    	parsed: 'Input the text to see how it will render!',
+    	parsed: '',
     };
     $scope.$watch('postid', function () {
     	if($scope.postid) {

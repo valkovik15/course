@@ -103,12 +103,13 @@ main {
 }
 ul, li {
     margin-left: 0px;
+    white-space:nowrap;
 }
 .star-rating .star {
     color: #E8E8E8;
     font-size: 4.0em;
     list-style-type: none;
-    display: inline-block;
+    display: inline;
     cursor: pointer;
 }
 .star-rating .star:hover {
