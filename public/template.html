@@ -1,11 +1,30 @@
+<link rel="localization" href="../locales/manifest.json">
+<script type="application/l10n-data+json">
+      {
+        "build": "prod",
+        "mode": "multi"
+      }
+    </script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<!-- Include the dist version of L20n -->
+<script src="../lib/l20n.js"></script>
+<script>
 
+    // L20n and document.l10n are now available
+    document.l10n.ready(function() {
+        console.log('context');
+
+    });
+
+
+</script>
 <link rel="stylesheet" href="/cloud/css/style.css">
 <script  src="/cloud/js/index.js"></script>
 <md-dialog aria-label="Upload your image!">
     <form ng-cloak>
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <h2>Upload your image</h2>
+                <h2 data-l10n-id="upload">Upload your image</h2>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="cancel()">
                     <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
@@ -16,15 +35,13 @@
         <md-dialog-content>
             <div class="md-dialog-content">
                 <div id="dropbox">
-                    <h1>Upload files with to Cloudinary with HTML5 file upload</h1> Learn more in this blog post - <a href="https://cloudinary.com/blog/direct_upload_made_easy_from_browser_or_mobile_app_to_the_cloud">Direct upload made easy, from browser or mobile app to the cloud</a>
-
-                    <form class="my-form">
+                  <form class="my-form">
                         <div class="form_line">
-                            <h4>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</h4>
+                            <h4 data-l10n-id="updialog">Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</h4>
                             <div class="form_controls">
                                 <div class="upload_button_holder">
                                     <input type="file" id="fileElem" multiple accept="image/*" style="display:none" onchange="handleFiles(this.files)">
-                                    <a href="#" id="fileSelect">Select some files</a>
+                                    <a href="#" id="fileSelect" data-l10n-id="selectdialog">Select some files</a>
                                 </div>
                             </div>
                         </div>
@@ -40,11 +57,11 @@
         <md-dialog-actions layout="row">
 
             <span flex></span>
-            <md-button ng-click="answer('not useful')">
-                Cancel
+            <md-button ng-click="answer('not useful')"> Cancel
+                <span data-l10n-id="cancel"></span>
             </md-button>
-            <md-button ng-click="answer('ok')">
-                OK
+            <md-button ng-click="answer('ok')"> OK
+                <span data-l10n-id="ok"></span>
             </md-button>
         </md-dialog-actions>
     </form>

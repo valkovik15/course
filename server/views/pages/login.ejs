@@ -53,7 +53,17 @@
              <a href="/signup" data-l10n-id="invite"></a>
         </form>
     </div>
+    <script>
+        function sleep(ms) {
+            ms += new Date().getTime();
+            while (new Date() < ms){}
+        };
+        $(document).ready(function(){
+            sleep(200);
+            $('#load').hide();
 
+        });
+    </script>
     <% include ../partials/footer %>
     <% include ../partials/javascript %>
 </body>

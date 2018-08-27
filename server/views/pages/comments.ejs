@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>{{title}}</title>
+    <title data-l10n-id="posts"></title>
     <% include ../partials/stylesheet %>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
@@ -17,6 +17,10 @@
     <!-- Include the dist version of L20n -->
     <script src="../lib/l20n.js"></script>
     <script>
+        function sleep(ms) {
+            ms += new Date().getTime();
+            while (new Date() < ms){}
+        };
 
         // L20n and document.l10n are now available
         document.l10n.ready(function() {
@@ -140,13 +144,19 @@
                 </div>
             </a>
             <% });%>
+
         </div>
             </div>
-
-
-
-
+<% include ../partials/loader %>
 <% include ../partials/footer %>
+<script>
+$(document).ready(function(){
+sleep(200);
+$('#load').hide();
+});
+</script>
+
+
 
 
         <% include ../partials/javascript %>

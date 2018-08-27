@@ -15,7 +15,7 @@ router.get('/new', isLoggedIn, function(req, res, next) {
 /* GET login page. */
 router.get('/login', function(req, res, next) {
     checklocale(req);
-    res.render('login', { title: 'Login Page', message: req.flash('loginMessage'), locale:req.session.locale });
+    res.render('login', { title: 'Login Page', message: req.flash('loginMessage'), locale:req.session.locale,theme:req.session.theme });
 });
 /* POST login */
 router.post('/login', passport.authenticate('local-login', {
@@ -44,7 +44,7 @@ function checklocale(req)
 router.get('/signup', function(req, res)
 {
     checklocale(req);
-    res.render('signup', { title: 'Signup Page', message: req.flash('signupMessage'), locale:req.session.locale });
+    res.render('signup', { title: 'Signup Page', message: req.flash('signupMessage'), locale:req.session.locale,theme:req.session.theme });
 });
 
 /* POST Signup */

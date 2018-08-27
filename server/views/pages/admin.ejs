@@ -8,7 +8,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
       <link rel="stylesheet" href="../admin/css/style.css">
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="localization" href="../locales/manifest.json">
+    <script type="application/l10n-data+json">
+      {
+        "build": "prod",
+        "mode": "multi"
+      }
+    </script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <!-- Include the dist version of L20n -->
+    <script src="../lib/l20n.js"></script>
+    <script>
 
+        // L20n and document.l10n are now available
+        document.l10n.ready(function() {
+            if("<%=locale%>"=='ru') {
+
+            }
+            if(!( document.l10n.supportedLocales[0] =="<%=locale%>")) {
+                console.log(document.l10n.supportedLocales);
+                document.l10n.requestLocales("<%=locale%>");
+
+            }
+            console.log("Document's context is ready");
+        });
+
+
+    </script>
 
 </head>
 
@@ -19,13 +45,13 @@
 
    <table cellspacing="0">
       <tr align="center">
-         <th>Picture</th>
-         <th>Name</th>
-         <th>Email</th>
-         <th width="10%">Role</th>
-         <th width="10%">Status</th>
+         <th data-l10n-id="picture">Picture</th>
+         <th data-l10n-id="name">Name</th>
+         <th data-l10n-id="data">Email</th>
+         <th data-l10n-id="role" width="10%">Role</th>
+         <th data-l10n-id="status" width="10%">Status</th>
 
-         <th width="37%">Controls</th>
+         <th width="37%" data-l10n-id="actions" >Controls</th>
       </tr>
        <% users.forEach(function(item) { %>
       <tr>
@@ -62,6 +88,17 @@
    </table>
 </div>
 
+  <script>
+      function sleep(ms) {
+          ms += new Date().getTime();
+          while (new Date() < ms){}
+      };
+      $(document).ready(function(){
+          sleep(200);
+          $('#load').hide();
+
+      });
+  </script>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

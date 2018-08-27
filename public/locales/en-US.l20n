@@ -28,3 +28,13 @@
 <change "Русская версия">
 <best "Top-5 best posts">
 <latest "Latest posts">
+<updialog "Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region">
+<selectdialog "Select some files">
+<ok "OK">
+<cancel "Cancel">
+<picture "Picture">
+<role "Role">
+<status "Status">
+<theme "Change theme">
+<editor "Editor">
+

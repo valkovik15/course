@@ -24,31 +24,29 @@
     <a class="item" href="/login" data-l10n-id="login">
         Log in
     </a>
+    <a href="/auth/vk" class="btn btn-primary"> VK</a>
     <a class="item" href="/local" data-l10n-id="change">
+        <a class="item" href="/theme" data-l10n-id="theme">
     </a>
     <a href="/auth/facebook" class="btn btn-primary"> Facebook</a>
+
     <div class="right menu">
-    <div class="ui search">
-        <div class="ui icon input">
-            <input class="prompt" data-l10n-id="bomb" type="text">
-            <i class="search icon"></i>
+        <div class="ui search">
+            <div class="ui icon input">
+                <input class="prompt" data-l10n-id="bomb" type="text">
+                <i class="search icon"></i>
+            </div>
+            <div class="results"></div>
         </div>
-        <div class="results"></div>
-    </div>
     </div>
 </div>
 </div>
 
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v3.1&appId=210456179651489&autoLogAppEvents=1';
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
+<script>
+
+
     $('.ui.search')
         .search({
-
             apiSettings: {
                 url: '/search?q={query}'
             },
@@ -56,5 +54,7 @@
         })
     ;
 
-    ;</script>
+
+
+</script>
 

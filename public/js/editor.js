@@ -12,8 +12,6 @@ app.controller("markdownEditorController", ["$scope",  "$http","$mdDialog",funct
     	if($scope.postid) {
             $http.get("/gettags/?id=" + $scope.postid)
                 .then(function (response) {
-                    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                    console.log(response.data);
                     $scope.tags = response.data;
                 });
         }
@@ -69,7 +67,7 @@ app.controller("markdownEditorController", ["$scope",  "$http","$mdDialog",funct
             case "step":
                 if ($scope.hasSelection()) {
                     // enhance
-                    $scope.insertText("### " + sel.text, sel.start, sel.end);
+                    $scope.insertText("\n ### " + sel.text, sel.start, sel.end);
                 } else {
                     // add new
                     $scope.insertPlacehodler("### Step", 4, 0);

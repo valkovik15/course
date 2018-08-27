@@ -20,22 +20,26 @@
 
         // L20n and document.l10n are now available
             document.l10n.ready(function() {
+                if ("<%= locale %>" == 'ru') {
+                    $('#show').html("Показать комментарии");
+                    $('#leave').html("Оставить оценку");
+                    $('#coms').html("Комментарии");
+                    $('#type').html("Напечатайте свой!");
+                    $('#submit').html("Опубликовать")
+                    $('#like').html("лайк(а/ов)");
+                    $('#cl').html("Закрыть");
+                    $('#prev').html("Предыдущий шаг");
+                    $('#next').html("Следующий шаг");
+                }
                 if(!( document.l10n.supportedLocales[0] == '<%=locale %>')) {
                     console.log(document.l10n.supportedLocales);
                     console.log('<%= locale %>');
                     document.l10n.requestLocales('<%= locale %>');
-                    if ("<%= locale %>" == 'ru') {
-                        $('#show').html("Показать комментарии");
-                        $('#leave').html("Оставить оценку");
-                        $('#coms').html("Комментарии");
-                        $('#type').html("Напечатайте свой!");
-                        $('#submit').html("Опубликовать")
-                        $('#like').html("лайк(а/ов)");
-                        $('#cl').html("Закрыть");
-                    }
+
                     console.log("Document's context is ready");
                 }
                 });
+
 
 
 
@@ -58,7 +62,7 @@
 
 </style>
 <% include ../partials/header %>
-<div  layout="column" style="height:500px;" ng-cloak="" class="sidenavdemoBasicUsage"  ng-init="postid='<%= id %>'; user='<%= user %>'; str=''">
+<div  layout="column" style="height:500px;" ng-cloak="" class="sidenavdemoBasicUsage"  ng-init="postid='<%= id %>'; user='<%= user %>'; str=''; locale='<%= locale%>'">
 
     <style>
 
@@ -107,8 +111,8 @@
 
                     </md-card-content>
                     <md-card-actions layout="row" layout-align="end center">
-                        <md-button ng-click="sub()" ng-show="index">Previous step</md-button>
-                        <md-button ng-click="add()" ng-show="steps.length-index-1">Next step</md-button>
+                        <md-button ng-click="sub()" ng-show="index" id="prev">Previous step</md-button>
+                        <md-button ng-click="add()" id="next" ng-show="steps.length-index-1">Next step</md-button>
                     </md-card-actions>
                 </md-card>
 
@@ -215,6 +219,15 @@ Use of this source code is governed by an MIT-style license that can be foundin 
             scope.upd(data);
 
         });
+    });
+    $(document).ready(function(){
+        function sleep(ms) {
+            ms += new Date().getTime();
+            while (new Date() < ms){}
+        };
+        sleep(200);
+        $('#load').hide();
+
     });
 
 </script>

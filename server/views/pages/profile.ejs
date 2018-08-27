@@ -16,19 +16,20 @@
 
         // L20n and document.l10n are now available
         document.l10n.ready(function() {
+            if("<%=locale%>"=='ru') {
+            /*    $('th.tit').html("Заголовок");
+                $('th.date').html("Дата");
+                $('th.grade').html("Оценка");
+                $('th.descr').html("Описание");
+                $('th.but').html("Действия");
+*/
+                $('.batn.red').html("Удалить");
+                $('.batn.yellow').html("Редактировать пост");
+            }
             if(!( document.l10n.supportedLocales[0] =="<%=locale%>")) {
                 console.log(document.l10n.supportedLocales);
                 document.l10n.requestLocales("<%=locale%>");
-                if("<%=locale%>"=='ru') {
-                    $('th.tit').html("Заголовок");
-                    $('th.date').html("Дата");
-                    $('th.grade').html("Оценка");
-                    $('th.grade').html("Оценка");
-                    $('th.descr').html("Описание");
-                    $('th.but').html("Действия");
-                    $('.batn.red').html("Удалить");
-                    $('.batn.yellow').html("Редактировать пост");
-                }
+
             }
             console.log("Document's context is ready");
         });
@@ -58,7 +59,7 @@
 </head>
 <body ng-app="app" ng-controller="Ctrl">
     <% include ../partials/header %>
-
+    <% include ../partials/loader %>
     <div class="container">
 
         <div class="datails">
@@ -93,21 +94,27 @@
                        data-show-export="false"
                        data-click-to-select="true">
                     <thead>
-                    <a href="#" class="batn red">Delete</a>
 
                     <tr>
-                        <th data-field="state" data-checkbox="true"></th>
-                        <th data-field="title" data-filter-control="input" data-sortable="true"  class="tit">Title</th>
-                        <th data-field="date" data-filter-control="select" data-sortable="true" class="date">Date</th>
-                        <th data-field="grade" data-filter-control="input" data-sortable="true" class="grade">Grade</th>
-                        <th data-field="descr" data-sortable="true" class="descr">Description</th>
-                        <th data-field="btn"  data-formatter="TableActions" class="but"> Buttons</th>
+                        <% if (locale!='ru') { %>
+                            <th data-field="title" data-filter-control="input" data-sortable="true"  class="tit">Title</th>
+                            <th data-field="date" data-filter-control="select" data-sortable="true" class="date">Date</th>
+                            <th data-field="grade" data-filter-control="input" data-sortable="true" class="grade">Grade</th>
+                            <th data-field="descr" data-sortable="true" class="descr">Description</th>
+                            <th data-field="btn"  data-formatter="TableActions" class="but"> Buttons</th>
+                        <% }  else {%>
+                        <th data-field="title" data-filter-control="input" data-sortable="true"  class="tit">Заголовок</th>
+                                    <th data-field="date" data-filter-control="select" data-sortable="true" class="date">Дата</th>
+                                    <th data-field="grade" data-filter-control="input" data-sortable="true" class="grade">Средняя оценка</th>
+                                    <th data-field="descr" data-sortable="true" class="descr">Описание</th>
+                                    <th data-field="btn"  data-formatter="TableActions" class="but"> Действия</th>
+                            <% }%>
                     </tr>
                     </thead>
                     <tbody>
                     <% posts.forEach(function(item) { %>
                     <tr id="<%=item.id%>">
-                        <td class="bs-checkbox "><input data-index="<%=item.id%>"  name="btSelectItem" type="checkbox"></td>
+
                         <td><%= item.dataValues.title%></td>
                         <td><%= item.createdAt%></td>
                         <td><%= item.grade%></td>
@@ -130,7 +137,8 @@
             <script  src="../profile/js/index.js"></script>
             <script  src="../buttons/js/index.js"></script>
             <script>
-            function TableActions (value, row, index) {
+
+                function TableActions (value, row, index) {
                 x=value;
                 console.log(value);
                 console.log(row);
@@ -144,13 +152,16 @@
             ].join('');
             }
             $(document).ready(function(){
+                function sleep(ms) {
+                    ms += new Date().getTime();
+                    while (new Date() < ms){}
+                };
                 $('.form-control').attr("placeholder", "");
-                if(document.l10n.supportedLocales[0] == 'ru')
-                {
-
-                }
+                sleep(200);
+                $('#load').hide();
 
             });
+
             </script>
 
         </div>
@@ -159,5 +170,6 @@
         <tang-cloud words="words" on-click="test(word)" width="900" height="900" ></tang-cloud>
     </div>
         <% include ../partials/javascript %>
+
     </body>
     </html>

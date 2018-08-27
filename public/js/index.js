@@ -173,7 +173,7 @@ function RatingController($scope, $http) {
     //set star rating to 0 first
     this.starrate = 0;
     $scope.$watch('user', function () {
-        $http.get("/getstars/?id="+$scope.postid+'&user='+$scope.user)
+        $http.get("/getstars/?id="+$scope.postid+'&user='+$scope.user+'&locale='+$scope.locale)
             .then(function(response) {
                 $scope.ratingForm.starrate=response.data.stars;
             });
@@ -182,6 +182,7 @@ function RatingController($scope, $http) {
     {
         $http.get("/rank/?post="+$scope.postid+'&user='+$scope.user+'&num='+$scope.ratingForm.starrate)
             .then(function(response) {
+
                 alert(response.data.message);
             });
     };

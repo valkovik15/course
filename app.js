@@ -154,7 +154,7 @@ app.get('/edit', isLoggedIn, function(req, res, next) {
 
                 );
                 console.log(tags);
-                res.render('new', { title: post.title, body:post.body, topic: post.topic, pic:post.pic, tags:tags, id:post.id, locale:req.session.locale});
+                res.render('new', { title: post.title, body:post.body, topic: post.topic, pic:post.pic, tags:tags, id:post.id, locale:req.session.locale, theme:req.session.theme});
             }
             );
 
@@ -237,7 +237,6 @@ app.get( '/like', function( req, res ) {
 });
 function checklocale(req)
 {
-
         if(!req.user) {
             req.session.locale = "en-US";
         }
@@ -245,6 +244,7 @@ function checklocale(req)
         {
             req.session.locale=req.user.locale;
         }
+        req.session.theme=req.session.theme||'ok';
 
 }
 
@@ -273,7 +273,8 @@ app.get('/admin', function(req, res)
 
                     res.render('admin', {
                         locale: req.session.locale,
-                        users: data
+                        users: data,
+                        theme:req.session.theme
                     });
                 })
                 .catch((err) => {
@@ -304,7 +305,6 @@ app.get('/query', function(req, res)
 
                 }
             );
-            console.log("DATA"+data);
             res.setHeader('Content-Type', 'application/json');
             res.send(JSON.stringify(data));} );
 
@@ -347,7 +347,6 @@ app.get('/search',function(req, res) {
                     'description': item1.Post.description
                 });
                 if (temp.length == arr1.length) {
-                    console.log(temp);
                     promise2=Promise.resolve(temp);
                 }
             });
@@ -378,7 +377,6 @@ app.get('/search',function(req, res) {
 });
 app.post('/updateUser', function(req,res)
 {
-    console.log(req.body);
     models.user.findOne({where: {id:req.body.id}})
         .then(function(user) {
             user.updateAttributes({name:req.body.name, email:req.body.email});
@@ -408,12 +406,11 @@ app.get('/searchtag', function(req,res)
                                 if(temp.length==arr.length)
                                 {
                                     temp.reverse();
-                                    console.log(temp);
                                     res.render('searchtags', {
                                         title: req.query.word,
                                         comments: temp,
                                         locale:req.session.locale,
-
+                                        theme:req.session.theme
                                     });
                                 }
                             })
@@ -437,7 +434,6 @@ app.get('/cl', function(req, res) {
                     item.getPosts().then(function (posts) {
                         sum += posts.length;
                         data.push({'size': Math.min(posts.length, 10), 'word': item.name});
-                        console.log(data);
                         if(data.length==tags.length)
                         {
                             res.setHeader('Content-Type', 'application/json');
@@ -459,14 +455,11 @@ app.get('/comments', function(req, res)
     Posts.findAll({include:[{model:User},{model:models.Grades},{model:models.Tags}]})
         .then(function(posts)
         {
-            console.log("POSTS");
-            console.log(posts);
             posts.forEach(
                 function(item, i, arr) {
                     avg=count_avg(item.Grades);
                     item.avg=avg;
                     item.avatar=item.user.pic||gravatar.url(item.user.email ,  {s: '80', r: 'x', d: 'retro'}, true);
-                    console.log(item.Tags);
 
                 }
             );
@@ -476,8 +469,7 @@ app.get('/comments', function(req, res)
             posts.sort(function(obj1, obj2) {
                 return obj2.avg-obj1.avg;
             });
-            console.log(posts);
-            console.log(latest);
+          
             if(posts.length>5)
             {
                 posts.splice(5);
@@ -487,7 +479,8 @@ app.get('/comments', function(req, res)
                 title: 'Articles Page',
                 comments: posts,
                 locale:req.session.locale,
-                latest: latest
+                latest: latest,
+                theme:req.session.theme
 
             });
         })
@@ -628,7 +621,8 @@ if(x)
     res.render('article',{
         locale:req.session.locale,
         id:req.query.id,
-        user:x
+        user:x,
+        theme:req.session.theme
     });
 });
 app.get('/publish', function(req, res)
@@ -732,26 +726,28 @@ app.get('/profile', isLoggedIn, function(req, res, next) {
                     }
             );
             if(user) {
-                console.log(posts);
+                console.log("THEME"+req.session.theme);
                 res.render('profile', {
                     title: 'Profile Page',
                     user: user.dataValues,
                     avatar: user.pic || gravatar.url(req.user.email, {s: '100', r: 'x', d: 'retro'}),
                     posts: posts,
-                    locale:req.session.locale
+                    locale:req.session.locale,
+                    theme:req.session.theme
                 })
             }
             else
             {
                 models.user.findOne({where:{id:id}})
                     .then(function(user)
-                {
+                {console.log("THEME"+req.session.theme);
                     res.render('profile', {
                         title: 'Profile Page',
                         user: user.dataValues,
                         avatar: user.pic || gravatar.url(req.user.email, {s: '100', r: 'x', d: 'retro'}),
                         posts: posts,
-                        locale:req.session.locale
+                        locale:req.session.locale,
+                        theme:req.session.theme
                     })
 
                 })
@@ -778,7 +774,13 @@ app.get('/rank',  function(req, res)
                     }
 
                 });
-            res.send({"message": 'Thanks for your opinion'});
+            if(req.query.locale=='en-US') {
+                res.send({"message": 'Thanks for your opinion'});
+            }
+            else
+            {
+                res.send({"message":'Ваше мнение очень важно для нас'})
+            }
         }
     }
     else
@@ -787,7 +789,17 @@ app.get('/rank',  function(req, res)
     }
 
 }
-);
+)
+app.get('/theme',  function(req, res) {
+    req.session.theme=req.session.theme||'ok';
+    if (req.session.theme == "ok") {
+        req.session.theme = "dark";
+    }
+    else {
+        req.session.theme = "ok";
+    }
+    res.redirect('/comments');
+});
 app.get('/local',  function(req, res)
     {
         let newlocale;
