@@ -469,7 +469,7 @@ app.get('/comments', function(req, res)
             posts.sort(function(obj1, obj2) {
                 return obj2.avg-obj1.avg;
             });
-          
+
             if(posts.length>5)
             {
                 posts.splice(5);
